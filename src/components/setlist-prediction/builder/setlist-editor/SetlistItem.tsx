@@ -19,7 +19,7 @@ import { Link } from '~/components/ui/link';
 import { IconButton } from '~/components/ui/styled/icon-button';
 import type { SetlistItem as SetlistItemType } from '~/types/setlist-prediction';
 import { isSongItem } from '~/types/setlist-prediction';
-import { useSongData } from '~/hooks/useSongData';
+import { useSongMap } from '~/hooks/useSongMap';
 import { getSongColor } from '~/utils/song';
 import { getSongName } from '~/utils/names';
 import type { Song } from '~/types';
@@ -69,16 +69,15 @@ const SetlistItemComponent = memo(function SetlistItem({
 }: SetlistItemProps) {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
-  const songData = useSongData();
+  const songMap = useSongMap();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   // Look up song details if this is a song item (must be before useSortable)
   const songDetails = useMemo(() => {
     if (!isSongItem(item) || item.isCustomSong) return null;
 
-    const songs = Array.isArray(songData) ? songData : [];
-    return songs.find((song: Song) => String(song.id) === String(item.songId)) || null;
-  }, [item, songData]);
+    return songMap.get(String(item.songId)) || null;
+  }, [item, songMap]);
 
   const {
     attributes,

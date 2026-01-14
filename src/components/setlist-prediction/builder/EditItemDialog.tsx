@@ -24,8 +24,8 @@ import { Text } from '~/components/ui/styled/text';
 import type { SetlistItem, SongSetlistItem, NonSongSetlistItem } from '~/types/setlist-prediction';
 import { isSongItem } from '~/types/setlist-prediction';
 import { useSongData } from '~/hooks/useSongData';
+import { useSongMap } from '~/hooks/useSongMap';
 import { getSongColor } from '~/utils/song';
-import type { Song } from '~/types';
 
 export interface EditItemDialogProps {
   open: boolean;
@@ -38,6 +38,7 @@ export function EditItemDialog({ open, onOpenChange, item, onSave }: EditItemDia
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const songData = useSongData();
+  const songMap = useSongMap();
 
   const [searchQuery, setSearchQuery] = useState('');
   const [remarks, setRemarks] = useState(item.remarks || '');
@@ -122,10 +123,9 @@ export function EditItemDialog({ open, onOpenChange, item, onSave }: EditItemDia
     if (!isSongItem(item)) return null;
     if (item.isCustomSong) return item.customSongName || 'Custom Song';
 
-    const songs = Array.isArray(songData) ? songData : [];
-    const song = songs.find((s: Song) => s.id === item.songId);
+    const song = songMap.get(String(item.songId));
     return song?.name || `Song ${item.songId}`;
-  }, [item, songData]);
+  }, [item, songMap]);
 
   return (
     <DialogRoot

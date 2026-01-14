@@ -48,7 +48,7 @@ import type {
 } from '~/types/setlist-prediction';
 import { isSongItem } from '~/types/setlist-prediction';
 import { usePredictionBuilder } from '~/hooks/setlist-prediction/usePredictionBuilder';
-import { useSongData } from '~/hooks/useSongData';
+import { useSongMap } from '~/hooks/useSongMap';
 import { getSongColor } from '~/utils/song';
 import type { Song } from '~/types';
 
@@ -65,7 +65,7 @@ export interface PredictionBuilderProps {
  * Drag Preview Component - rendered inside DragOverlay
  */
 function DragPreview({ activeData }: { activeData: Record<string, unknown> | null }) {
-  const songData = useSongData();
+  const songMap = useSongMap();
 
   if (!activeData) {
     return null;
@@ -77,8 +77,7 @@ function DragPreview({ activeData }: { activeData: Record<string, unknown> | nul
   if (sourceData.type === 'search-result') {
     const songId = sourceData.songId as string;
     const songName = sourceData.songName as string;
-    const songs = Array.isArray(songData) ? songData : [];
-    const songDetails = songs.find((song: Song) => String(song.id) === String(songId));
+    const songDetails = songMap.get(String(songId));
     const songColor = songDetails ? getSongColor(songDetails) : undefined;
 
     // Get artist name
@@ -222,7 +221,7 @@ export function PredictionBuilder({
   onSave
 }: PredictionBuilderProps) {
   const { t } = useTranslation();
-  const songData = useSongData();
+  const songMap = useSongMap();
 
   const {
     prediction,
@@ -287,9 +286,8 @@ export function PredictionBuilder({
       // set overid to be the last item's id
       const overId = prediction.setlist.items[prediction.setlist.items.length - 1]?.id;
       if (activeData.type === 'search-result') {
-        const songs = Array.isArray(songData) ? songData : [];
         const songId = activeData.songId as string;
-        const songDetails = songs.find((song: Song) => String(song.id) === String(songId));
+        const songDetails = songMap.get(String(songId));
 
         const tempItem: SetlistItemType = {
           id: `temp-${songId}`,
@@ -336,9 +334,8 @@ export function PredictionBuilder({
 
     // Show indicator for cross-list dragging (search to setlist)
     if (activeData.type === 'search-result') {
-      const songs = Array.isArray(songData) ? songData : [];
       const songId = activeData.songId as string;
-      const songDetails = songs.find((song: Song) => String(song.id) === String(songId));
+      const songDetails = songMap.get(String(songId));
 
       const tempItem: SetlistItemType = {
         id: `temp-${songId}`,
@@ -377,7 +374,7 @@ export function PredictionBuilder({
     }
 
     return null;
-  }, [activeId, overId, activeData, prediction.setlist.items, songData]);
+  }, [activeId, overId, activeData, prediction.setlist.items, songMap]);
 
   // Handle drag start
   const handleDragStart = useCallback((event: DragStartEvent) => {
