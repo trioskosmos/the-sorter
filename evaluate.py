@@ -20,11 +20,11 @@ def evaluate():
 
     game = LoveLiveGame()
 
-    # Model parameters must match train.py
-    num_songs = len(game.songs) + 1
-    num_artists = len(game.artists) + 1
+    # Model parameters must match train.py (using mappings to match trained model)
+    num_songs = len(mappings['song_to_idx']) + 1
+    num_artists = len(mappings['artist_to_idx']) + 1
     num_feedback = 4
-    num_lives = len(game.lives)
+    num_lives = len(mappings['live_to_idx'])
 
     if torch.cuda.is_available():
         device = torch.device('cuda')

@@ -256,11 +256,11 @@ def play_cli():
             with open('mappings.json', 'r') as f:
                 ai_mappings = json.load(f)
 
-            game_temp = LoveLiveGame() # Just to get counts
-            num_songs = len(game_temp.songs) + 1
-            num_artists = len(game_temp.artists) + 1
+            # Use mappings for sizing
+            num_songs = len(ai_mappings['song_to_idx']) + 1
+            num_artists = len(ai_mappings['artist_to_idx']) + 1
             num_feedback = 4
-            num_lives = len(game_temp.lives)
+            num_lives = len(ai_mappings['live_to_idx'])
 
             if torch.cuda.is_available():
                 ai_device = torch.device('cuda')
