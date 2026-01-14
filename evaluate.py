@@ -26,7 +26,12 @@ def evaluate():
     num_feedback = 4
     num_lives = len(game.lives)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+    elif torch.backends.mps.is_available():
+        device = torch.device('mps')
+    else:
+        device = torch.device('cpu')
     model = LoveLiveTransformer(num_songs, num_artists, num_feedback, num_lives).to(device)
     model.load_state_dict(torch.load('transformer_model.pth', map_location=device))
     model.eval()
@@ -75,6 +80,12 @@ def evaluate():
             with torch.no_grad():
                 logits = model(s_in, a_in, f_in)
                 probs = torch.softmax(logits, dim=1).squeeze(0) # (num_lives)
+
+            # Check if model's top choice is invalid (pruned)
+            raw_top_idx = torch.argmax(probs).item()
+            raw_top_live_id = idx_to_live[raw_top_idx]
+            if raw_top_live_id not in game.possible_live_ids:
+                 print(f"  [Model Warning] Model wanted to pick {game.lives[raw_top_live_id]['name']} but it is pruned.")
 
             # Apply hard constraints (pruning)
             # Mask out impossible lives based on game.possible_live_ids

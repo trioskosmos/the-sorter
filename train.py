@@ -44,23 +44,45 @@ class GameDataset(Dataset):
         artists_seq = []
         feedbacks_seq = []
 
+        used_song_ids = set()
+
         for _ in range(seq_len):
             # Strategy: Mix of correct and incorrect guesses
-            if target_songs and random.random() < 0.3:
-                # Pick a song actually in the live
-                guessed_song_id = random.choice(target_songs)
-                # Pick correct artist or incorrect artist
-                # Most of the time correct artist if song is correct (simulates knowing the song)
-                song_artist_ids = self.game.songs[guessed_song_id]['artist_ids']
-                if song_artist_ids and random.random() < 0.8:
-                     guessed_artist_id = random.choice(song_artist_ids)
-                else:
-                     guessed_artist_id = random.choice(self.all_artist_ids)
-            else:
-                # Random guess
-                guessed_song_id = random.choice(self.all_song_ids)
+            # Try to pick a song we haven't guessed yet
+
+            # Determine if we try to guess a correct song or random song
+            guess_correct = (target_songs and random.random() < 0.3)
+
+            guessed_song_id = None
+            guessed_artist_id = None
+
+            if guess_correct:
+                # Pick a song actually in the live (that hasn't been used)
+                valid_targets = [s for s in target_songs if s not in used_song_ids]
+                if valid_targets:
+                    guessed_song_id = random.choice(valid_targets)
+                    # Pick correct artist or incorrect artist
+                    song_artist_ids = self.game.songs[guessed_song_id]['artist_ids']
+                    if song_artist_ids and random.random() < 0.8:
+                         guessed_artist_id = random.choice(song_artist_ids)
+                    else:
+                         guessed_artist_id = random.choice(self.all_artist_ids)
+
+            if guessed_song_id is None:
+                # Random guess (retry a few times to find unused)
+                for _ in range(10):
+                    candidate = random.choice(self.all_song_ids)
+                    if candidate not in used_song_ids:
+                        guessed_song_id = candidate
+                        break
+
+                if guessed_song_id is None:
+                    # If we really can't find a new song (unlikely), just pick any
+                    guessed_song_id = random.choice(self.all_song_ids)
+
                 guessed_artist_id = random.choice(self.all_artist_ids)
 
+            used_song_ids.add(guessed_song_id)
             feedback = self.game.guess_song(guessed_song_id, guessed_artist_id)
 
             # Map to indices
@@ -89,7 +111,7 @@ class GameDataset(Dataset):
     def __getitem__(self, idx):
         return self.data[idx]
 
-def train():
+def train(args):
     game = LoveLiveGame()
 
     # Create mappings
@@ -106,7 +128,7 @@ def train():
         }, f)
 
     dataset = GameDataset(game, song_to_idx, artist_to_idx, live_to_idx)
-    dataloader = DataLoader(dataset, batch_size=32, shuffle=True)
+    dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
 
     # +1 for padding
     num_songs = len(game.songs) + 1
@@ -114,14 +136,19 @@ def train():
     num_feedback = 4 # 0(pad), 1(0), 2(1), 3(2)
     num_lives = len(game.lives)
 
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    if torch.cuda.is_available():
+        device = torch.device('cuda')
+    elif torch.backends.mps.is_available():
+        device = torch.device('mps')
+    else:
+        device = torch.device('cpu')
     print(f"Using device: {device}")
 
     model = LoveLiveTransformer(num_songs, num_artists, num_feedback, num_lives).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-    epochs = 10
+    epochs = args.epochs
     for epoch in range(epochs):
         model.train()
         total_loss = 0
@@ -145,4 +172,18 @@ def train():
     print("Model saved.")
 
 if __name__ == "__main__":
-    train()
+    import os
+    import argparse
+
+    if not os.path.exists('game_data.json'):
+        print("Error: game_data.json not found. Please run 'python preprocess.py' first.")
+        exit(1)
+
+    parser = argparse.ArgumentParser(description="Train the LoveLive! Transformer Model")
+    parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training')
+    parser.add_argument('--num_workers', type=int, default=0, help='Number of workers for data loading (set >0 for threading)')
+    parser.add_argument('--epochs', type=int, default=10, help='Number of epochs to train')
+
+    args = parser.parse_args()
+
+    train(args)
