@@ -67,10 +67,6 @@ def evaluate():
             print(f"Turn {turn+1}: First guess random -> {game.songs[guess_song_id]['name']}")
         else:
             # Use model to predict live
-            # Pad inputs? Model uses positional encoding, so length matters.
-            # Train used random seq len 1..20.
-            # Just pass current seq.
-
             # Map indices + 1
             s_in = torch.tensor([x + 1 for x in songs_seq], device=device).unsqueeze(1) # (seq_len, 1)
             a_in = torch.tensor([x + 1 for x in artists_seq], device=device).unsqueeze(1)
@@ -80,6 +76,22 @@ def evaluate():
                 logits = model(s_in, a_in, f_in)
                 probs = torch.softmax(logits, dim=1).squeeze(0) # (num_lives)
 
+            # Apply hard constraints (pruning)
+            # Mask out impossible lives based on game.possible_live_ids
+            mask = torch.zeros_like(probs)
+            possible_indices = [live_to_idx[lid] for lid in game.possible_live_ids]
+
+            if not possible_indices:
+                print("Error: No possible lives remaining according to hard constraints!")
+                break
+
+            mask[possible_indices] = 1.0
+            probs = probs * mask
+            if probs.sum() == 0:
+                 # Fallback (shouldn't happen if logic correct)
+                 probs[possible_indices] = 1.0
+            probs = probs / (probs.sum() + 1e-9)
+
             # Sort predictions
             sorted_indices = torch.argsort(probs, descending=True)
 
@@ -87,7 +99,7 @@ def evaluate():
             top_live_id = idx_to_live[top_idx.item()]
             top_prob = probs[top_idx]
 
-            print(f"Turn {turn+1}: Top Prediction: {game.lives[top_live_id]['name']} ({top_prob.item():.4f})")
+            print(f"Turn {turn+1}: Top Prediction: {game.lives[top_live_id]['name']} ({top_prob.item():.4f}) [Candidates: {len(possible_indices)}]")
 
             if top_prob.item() > 0.7 and top_live_id not in guessed_lives:
                 # Try guessing the live
@@ -99,43 +111,57 @@ def evaluate():
                 else:
                     print("WRONG Live guess. Continuing...")
                     guessed_lives.add(top_live_id)
+                    if top_live_id in game.possible_live_ids:
+                        game.possible_live_ids.remove(top_live_id)
 
-            # Choose next song
-            # Pick the Top N lives
-            top_k = 10
-            top_indices = torch.topk(probs, k=top_k).indices.tolist()
-            candidate_lives_ids = [idx_to_live[i] for i in top_indices]
+            # Choose next song: Weighted Probability Split
+            # Calculate P(song_in_live) = Sum(P(live)) for all lives containing song
+            # We want this probability to be close to 0.5
 
-            # Collect songs from these lives
-            candidate_songs = []
-            for lid in candidate_lives_ids:
-                candidate_songs.extend(game.lives[lid]['song_ids'])
+            song_prob_sum = {}
 
-            # Count frequency
-            from collections import Counter
-            song_counts = Counter(candidate_songs)
+            # Iterate only over possible lives to save time?
+            # Or iterate top N lives?
+            # With masking, probs outside possible_ids are 0.
+            # So we can iterate over indices where probs > threshold, or just all possible_indices.
 
-            # Filter songs already guessed
-            guessed_set = set(songs_seq) # indices
-            # song_counts uses IDs
+            # Optimization:
+            # Iterate through possible lives (which might be few now).
+            for idx in possible_indices:
+                p = probs[idx].item()
+                if p < 1e-5: continue
+
+                lid = idx_to_live[idx]
+                for sid in game.lives[lid]['song_ids']:
+                    song_prob_sum[sid] = song_prob_sum.get(sid, 0.0) + p
 
             best_song_id = None
-            best_score = -1
+            min_diff = 1.0
+            guessed_set = set(songs_seq) # indices
 
-            # Heuristic: Pick song closest to appearing in 50% of top candidates (Entropy maximization)
-            target_count = top_k / 2
+            # Identify songs that are valid (in at least one possible live)
+            # song_prob_sum only contains such songs (and songs from lives with p>0)
 
-            for sid, count in song_counts.items():
-                if song_to_idx[sid] in guessed_set:
-                    continue
+            if not song_prob_sum:
+                # Should not happen unless probs sum to 0
+                 best_song_id = random.choice(all_song_ids)
+            else:
+                for sid, p_sum in song_prob_sum.items():
+                    if song_to_idx[sid] in guessed_set:
+                        continue
 
-                score = -abs(count - target_count) # Maximize this (closest to 0 diff)
-                if score > best_score:
-                    best_score = score
-                    best_song_id = sid
+                    diff = abs(p_sum - 0.5)
+                    if diff < min_diff:
+                        min_diff = diff
+                        best_song_id = sid
 
             if not best_song_id:
-                best_song_id = random.choice(all_song_ids)
+                 # Fallback
+                 valid_sids = [sid for sid in song_prob_sum.keys() if song_to_idx[sid] not in guessed_set]
+                 if valid_sids:
+                     best_song_id = random.choice(valid_sids)
+                 else:
+                     best_song_id = random.choice(all_song_ids)
 
             guess_song_id = best_song_id
             # Pick likely artist for this song
@@ -147,6 +173,9 @@ def evaluate():
         # Execute guess
         feedback = game.guess_song(guess_song_id, guess_artist_id)
         print(f"Feedback: {feedback}")
+
+        # Prune candidates based on feedback
+        game.prune_candidates(guess_song_id, guess_artist_id, feedback)
 
         songs_seq.append(song_to_idx[guess_song_id])
         artists_seq.append(artist_to_idx[guess_artist_id])

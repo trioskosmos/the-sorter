@@ -29,6 +29,9 @@ class LoveLiveGame:
         else:
             self.target_live_id = random.choice(self.live_ids)
         self.target_live = self.lives[self.target_live_id]
+
+        # Initialize candidates
+        self.possible_live_ids = set(self.live_ids)
         return self.target_live_id
 
     def guess_song(self, song_id, artist_id):
@@ -50,6 +53,65 @@ class LoveLiveGame:
                 return 1 # Song Correct, Artist Incorrect
         else:
             return 0 # Song Incorrect
+
+    def guess_song_only(self, song_id):
+        """
+        Used for Song-Only mode.
+        Returns: (is_correct, matched_artist_ids)
+        """
+        if song_id not in self.songs:
+            return False, []
+
+        if song_id in self.target_live['song_ids']:
+            # Find artists in this live that are associated with this song
+            live_artists = set(self.target_live['artist_ids'])
+            song_artists = set(self.songs[song_id]['artist_ids'])
+
+            # Intersection: Artists in the live who are known to perform this song
+            matched = list(live_artists.intersection(song_artists))
+
+            # Fallback: if intersection is empty (unexpected), return valid artists?
+            # Or maybe just return all song_artists?
+            # Let's return matched if any, else song_artists (maybe guest performer?)
+            if not matched:
+                 matched = list(song_artists)
+
+            return True, matched
+        else:
+            return False, []
+
+    def prune_candidates(self, song_id, artist_id, feedback):
+        """
+        Updates self.possible_live_ids based on feedback.
+        Returns remaining count.
+        """
+        to_remove = set()
+        for lid in self.possible_live_ids:
+            live = self.lives[lid]
+            has_song = song_id in live['song_ids']
+
+            # For artist check, we only check if artist is in live's artist list
+            has_artist = artist_id in live['artist_ids']
+
+            if feedback == 0:
+                # Song NOT in live
+                if has_song:
+                    to_remove.add(lid)
+            elif feedback == 1:
+                # Song IN live, Artist NOT in live
+                if not has_song:
+                    to_remove.add(lid)
+                if has_artist:
+                    to_remove.add(lid)
+            elif feedback == 2:
+                # Song IN live, Artist IN live
+                if not has_song:
+                    to_remove.add(lid)
+                if not has_artist:
+                    to_remove.add(lid)
+
+        self.possible_live_ids -= to_remove
+        return len(self.possible_live_ids)
 
     def guess_live(self, live_id):
         return live_id == self.target_live_id
@@ -83,37 +145,112 @@ def play_cli():
     game = LoveLiveGame()
     game.start_game()
     print("Welcome to LoveLive Wordle!")
-    print("Guess the Live Concert!")
+
+    # Select Mode
+    print("\nSelect Game Mode:")
+    print("1. Standard (Guess Song & Artist)")
+    print("2. Song Only (Guess Song, Reveal Artist)")
+    mode_choice = input("Choice [1/2]: ").strip()
+    song_only_mode = (mode_choice == '2')
+
+    # Pruning Toggle
+    print("\nEnable Pruning Assistance? (Shows remaining candidates, warns on invalid guesses)")
+    pruning_choice = input("Choice [y/n]: ").strip().lower()
+    pruning_enabled = (pruning_choice == 'y')
+
+    print("\nGuess the Live Concert!")
 
     while True:
-        mode = input("\n[S] Guess Song / [L] Guess Live / [Q] Quit: ").upper()
+        prompt = "\n[S] Guess Song / [L] Guess Live / [Q] Quit"
+        if pruning_enabled:
+            prompt += f" (Candidates: {len(game.possible_live_ids)})"
+        prompt += ": "
+
+        mode = input(prompt).upper()
         if mode == 'Q':
             print(f"The answer was: {game.target_live['name']}")
             break
 
         elif mode == 'S':
             s_name = input("Song Name: ")
-            a_name = input("Artist Name: ")
-
             sid = game.find_song_id(s_name)
-            aid = game.find_artist_id(a_name)
 
             if not sid:
                 print("Song not found.")
                 continue
-            if not aid:
-                print("Artist not found.")
-                continue
 
-            print(f"Guessing: {game.songs[sid]['name']} / {game.artists[aid]['name']}")
-            result = game.guess_song(sid, aid)
+            if pruning_enabled:
+                 # Check validity: Is this song in any remaining candidate live?
+                 is_valid_guess = False
+                 for lid in game.possible_live_ids:
+                     if sid in game.lives[lid]['song_ids']:
+                         is_valid_guess = True
+                         break
 
-            if result == 2:
-                print(">> PERFECT MATCH! (Song & Artist are in the live)")
-            elif result == 1:
-                print(">> SONG CORRECT! (But Artist is not in the live)")
-            elif result == 0:
-                print(">> WRONG. (Song is not in the live)")
+                 if not is_valid_guess:
+                     print("WARNING: This song is not in any of the remaining candidate lives!")
+                     confirm = input("Guess anyway? [y/N]: ").strip().lower()
+                     if confirm != 'y':
+                         continue
+
+            if song_only_mode:
+                print(f"Guessing Song: {game.songs[sid]['name']}")
+                is_correct, matched_artists = game.guess_song_only(sid)
+
+                if is_correct:
+                    artist_names = [game.artists[aid]['name'] for aid in matched_artists]
+                    print(f">> CORRECT! Song is in the live.")
+                    print(f"   Artists revealed: {', '.join(artist_names)}")
+
+                    if pruning_enabled:
+                         # Prune lives without this song AND without these artists
+                         to_remove = set()
+                         for lid in game.possible_live_ids:
+                             l = game.lives[lid]
+                             if sid not in l['song_ids']:
+                                 to_remove.add(lid)
+                             else:
+                                 # Also check artists
+                                 for aid in matched_artists:
+                                     if aid not in l['artist_ids']:
+                                         to_remove.add(lid)
+                                         break
+
+                         game.possible_live_ids -= to_remove
+                         print(f"   (Candidates remaining: {len(game.possible_live_ids)})")
+
+                else:
+                    print(">> WRONG. (Song is not in the live)")
+                    if pruning_enabled:
+                        # Prune lives WITH this song
+                        to_remove = set()
+                        for lid in game.possible_live_ids:
+                            if sid in game.lives[lid]['song_ids']:
+                                to_remove.add(lid)
+                        game.possible_live_ids -= to_remove
+                        print(f"   (Candidates remaining: {len(game.possible_live_ids)})")
+
+            else:
+                a_name = input("Artist Name: ")
+                aid = game.find_artist_id(a_name)
+
+                if not aid:
+                    print("Artist not found.")
+                    continue
+
+                print(f"Guessing: {game.songs[sid]['name']} / {game.artists[aid]['name']}")
+                result = game.guess_song(sid, aid)
+
+                if result == 2:
+                    print(">> PERFECT MATCH! (Song & Artist are in the live)")
+                elif result == 1:
+                    print(">> SONG CORRECT! (But Artist is not in the live)")
+                elif result == 0:
+                    print(">> WRONG. (Song is not in the live)")
+
+                if pruning_enabled:
+                    rem = game.prune_candidates(sid, aid, result)
+                    print(f"   (Candidates remaining: {rem})")
 
         elif mode == 'L':
             l_name = input("Live Name: ")
@@ -128,6 +265,10 @@ def play_cli():
                 break
             else:
                 print("Incorrect Live.")
+                if pruning_enabled:
+                    if lid in game.possible_live_ids:
+                        game.possible_live_ids.remove(lid)
+                    print(f"   (Candidates remaining: {len(game.possible_live_ids)})")
 
 if __name__ == "__main__":
     play_cli()

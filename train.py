@@ -17,22 +17,25 @@ class GameDataset(Dataset):
         self.live_to_idx = live_to_idx
         self.num_samples = num_samples
         self.max_seq_len = max_seq_len
+        self.data = []
 
         self.all_song_ids = list(game.songs.keys())
         self.all_artist_ids = list(game.artists.keys())
 
-    def __len__(self):
-        return self.num_samples
+        print(f"Pre-generating {num_samples} samples...")
+        for _ in tqdm(range(num_samples)):
+            self.data.append(self.generate_sample())
 
-    def __getitem__(self, idx):
+    def generate_sample(self):
         # 1. Pick a target live
         target_live_id = random.choice(self.game.live_ids)
         target_live = self.game.lives[target_live_id]
+
+        # Set target live for feedback generation
         self.game.target_live_id = target_live_id
         self.game.target_live = target_live
 
         target_songs = target_live['song_ids']
-        target_artists = target_live['artist_ids']
 
         # 2. Generate guess sequence
         seq_len = random.randint(1, self.max_seq_len)
@@ -61,19 +64,11 @@ class GameDataset(Dataset):
             feedback = self.game.guess_song(guessed_song_id, guessed_artist_id)
 
             # Map to indices
-            # +1 for padding if needed, but here we just pad manually
             songs_seq.append(self.song_to_idx[guessed_song_id])
             artists_seq.append(self.artist_to_idx[guessed_artist_id])
             feedbacks_seq.append(feedback) # 0, 1, 2
 
         # Pad to max_seq_len
-        # Use 0 as padding index?
-        # But 0 is a valid index in my mappings usually.
-        # Let's shift mappings by 1, so 0 is padding.
-        # Song/Artist indices will be 1..N.
-        # Feedback indices: 0 is feedback 0?
-        # Feedback values are 0, 1, 2. Let's map them to 1, 2, 3. 0 is padding.
-
         padded_songs = np.zeros(self.max_seq_len, dtype=int)
         padded_artists = np.zeros(self.max_seq_len, dtype=int)
         padded_feedbacks = np.zeros(self.max_seq_len, dtype=int)
@@ -87,6 +82,12 @@ class GameDataset(Dataset):
                 torch.tensor(padded_artists),
                 torch.tensor(padded_feedbacks),
                 torch.tensor(self.live_to_idx[target_live_id]))
+
+    def __len__(self):
+        return self.num_samples
+
+    def __getitem__(self, idx):
+        return self.data[idx]
 
 def train():
     game = LoveLiveGame()
