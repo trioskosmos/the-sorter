@@ -3,6 +3,7 @@ import torch
 import random
 import time
 import numpy as np
+import argparse
 from tqdm import tqdm
 from model import LoveLiveTransformer
 from game import LoveLiveGame
@@ -160,6 +161,11 @@ class HybridAIAgent(Agent):
         return solved, turns
 
 def run_benchmark():
+    parser = argparse.ArgumentParser(description="Benchmark LoveLive! Agents")
+    parser.add_argument('--all', action='store_true', help='Run benchmark on ALL lives')
+    parser.add_argument('--games', type=int, default=50, help='Number of games to run if not --all')
+    args = parser.parse_args()
+
     game = LoveLiveGame()
 
     # Initialize agents
@@ -172,8 +178,12 @@ def run_benchmark():
         has_ai = False
 
     # Test Setup
-    num_games = 50
-    test_live_ids = random.sample(game.live_ids, num_games)
+    if args.all:
+        test_live_ids = game.live_ids
+        num_games = len(test_live_ids)
+    else:
+        num_games = args.games
+        test_live_ids = random.sample(game.live_ids, num_games)
 
     print(f"Starting Benchmark: {num_games} games")
     print("-" * 60)
