@@ -127,7 +127,7 @@ def train(args):
             'live_to_idx': live_to_idx
         }, f)
 
-    dataset = GameDataset(game, song_to_idx, artist_to_idx, live_to_idx)
+    dataset = GameDataset(game, song_to_idx, artist_to_idx, live_to_idx, num_samples=args.num_samples)
     dataloader = DataLoader(dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers)
 
     # +1 for padding
@@ -183,6 +183,7 @@ if __name__ == "__main__":
     parser.add_argument('--batch_size', type=int, default=32, help='Batch size for training')
     parser.add_argument('--num_workers', type=int, default=0, help='Number of workers for data loading (set >0 for threading)')
     parser.add_argument('--epochs', type=int, default=10, help='Number of epochs to train')
+    parser.add_argument('--num_samples', type=int, default=10000, help='Number of samples to pre-generate')
 
     args = parser.parse_args()
 
