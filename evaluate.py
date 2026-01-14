@@ -114,61 +114,28 @@ def evaluate():
                     if top_live_id in game.possible_live_ids:
                         game.possible_live_ids.remove(top_live_id)
 
-            # Choose next song: Weighted Probability Split
-            # Calculate P(song_in_live) = Sum(P(live)) for all lives containing song
-            # We want this probability to be close to 0.5
+            # Choose next song: Use Game Engine's Best Move (Entropy)
+            # The game engine uses uniform probability over remaining candidates.
+            # We can upgrade this to use the model's probabilities?
 
-            song_prob_sum = {}
+            # Option A: Use game.get_best_moves() (Pure Entropy on uniform priors)
+            # Option B: Use Model Weighted Entropy (similar to what I had, but maybe cleaner?)
 
-            # Iterate only over possible lives to save time?
-            # Or iterate top N lives?
-            # With masking, probs outside possible_ids are 0.
-            # So we can iterate over indices where probs > threshold, or just all possible_indices.
+            # Let's use the game engine's pure entropy for robustness, as the model
+            # can be overconfident or biased. Pure entropy ensures we cut the search space.
 
-            # Optimization:
-            # Iterate through possible lives (which might be few now).
-            for idx in possible_indices:
-                p = probs[idx].item()
-                if p < 1e-5: continue
+            best_moves = game.get_best_moves(top_k=1)
 
-                lid = idx_to_live[idx]
-                for sid in game.lives[lid]['song_ids']:
-                    song_prob_sum[sid] = song_prob_sum.get(sid, 0.0) + p
-
-            best_song_id = None
-            min_diff = 1.0
-            guessed_set = set(songs_seq) # indices
-
-            # Identify songs that are valid (in at least one possible live)
-            # song_prob_sum only contains such songs (and songs from lives with p>0)
-
-            if not song_prob_sum:
-                # Should not happen unless probs sum to 0
-                 best_song_id = random.choice(all_song_ids)
+            if best_moves:
+                guess_song_id = best_moves[0][0]
+                print(f"Guessing Song: {game.songs[guess_song_id]['name']} (Score: {best_moves[0][1]:.4f})")
             else:
-                for sid, p_sum in song_prob_sum.items():
-                    if song_to_idx[sid] in guessed_set:
-                        continue
-
-                    diff = abs(p_sum - 0.5)
-                    if diff < min_diff:
-                        min_diff = diff
-                        best_song_id = sid
-
-            if not best_song_id:
-                 # Fallback
-                 valid_sids = [sid for sid in song_prob_sum.keys() if song_to_idx[sid] not in guessed_set]
-                 if valid_sids:
-                     best_song_id = random.choice(valid_sids)
-                 else:
-                     best_song_id = random.choice(all_song_ids)
-
-            guess_song_id = best_song_id
+                # Fallback if no moves (shouldn't happen if candidates > 1)
+                guess_song_id = random.choice(all_song_ids)
+                print(f"Guessing Song: {game.songs[guess_song_id]['name']} (Random Fallback)")
             # Pick likely artist for this song
             a_ids = game.songs[guess_song_id]['artist_ids']
             guess_artist_id = a_ids[0] if a_ids else list(game.artists.keys())[0]
-
-            print(f"Guessing Song: {game.songs[guess_song_id]['name']}")
 
         # Execute guess
         feedback = game.guess_song(guess_song_id, guess_artist_id)

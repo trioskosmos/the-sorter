@@ -1,6 +1,8 @@
 import json
 import random
 import difflib
+import math
+from collections import Counter
 
 class LoveLiveGame:
     def __init__(self, data_path='game_data.json'):
@@ -18,6 +20,11 @@ class LoveLiveGame:
         self.target_live_id = None
         self.target_live = None
 
+        # Candidates & History (Initialized here for safety, reset in start_game)
+        self.possible_live_ids = set(self.live_ids)
+        self.guessed_song_ids = set()
+        self.guessed_live_ids = set()
+
         # Mappings for search
         self.song_name_map = {s['name']: sid for sid, s in self.songs.items()}
         self.artist_name_map = {a['name']: aid for aid, a in self.artists.items()}
@@ -30,8 +37,11 @@ class LoveLiveGame:
             self.target_live_id = random.choice(self.live_ids)
         self.target_live = self.lives[self.target_live_id]
 
-        # Initialize candidates
+        # Reset state
         self.possible_live_ids = set(self.live_ids)
+        self.guessed_song_ids = set()
+        self.guessed_live_ids = set()
+
         return self.target_live_id
 
     def guess_song(self, song_id, artist_id):
@@ -43,6 +53,8 @@ class LoveLiveGame:
         """
         if song_id not in self.songs:
             return -1 # Invalid song
+
+        self.guessed_song_ids.add(song_id)
 
         # Check if song is in target live
         if song_id in self.target_live['song_ids']:
@@ -61,6 +73,8 @@ class LoveLiveGame:
         """
         if song_id not in self.songs:
             return False, []
+
+        self.guessed_song_ids.add(song_id)
 
         if song_id in self.target_live['song_ids']:
             # Find artists in this live that are associated with this song
@@ -114,6 +128,7 @@ class LoveLiveGame:
         return len(self.possible_live_ids)
 
     def guess_live(self, live_id):
+        self.guessed_live_ids.add(live_id)
         return live_id == self.target_live_id
 
     def find_song_id(self, name):
@@ -141,6 +156,68 @@ class LoveLiveGame:
             return self.live_name_map[matches[0]]
         return None
 
+    def calculate_entropy(self, song_id):
+        """
+        Calculates the expected information gain (entropy) of guessing this song.
+        Considers only 'Song Correct' vs 'Song Incorrect' to simplify,
+        since Artist match depends on user choice (which we can't predict easily)
+        or we assume 'Song Only' mode logic.
+
+        Using binary outcome:
+        - Song in live (Yes)
+        - Song not in live (No)
+        """
+        candidate_count = len(self.possible_live_ids)
+        if candidate_count <= 1:
+            return 0.0
+
+        # Count how many remaining lives have this song
+        yes_count = 0
+        for lid in self.possible_live_ids:
+            if song_id in self.lives[lid]['song_ids']:
+                yes_count += 1
+
+        no_count = candidate_count - yes_count
+
+        p_yes = yes_count / candidate_count
+        p_no = no_count / candidate_count
+
+        entropy = 0.0
+        if p_yes > 0:
+            entropy -= p_yes * math.log2(p_yes)
+        if p_no > 0:
+            entropy -= p_no * math.log2(p_no)
+
+        return entropy
+
+    def get_best_moves(self, top_k=5):
+        """
+        Returns list of (song_id, entropy_score)
+        sorted by score descending.
+        """
+        scores = []
+
+        # Optimization: Only consider songs that are present in at least one candidate live?
+        # Or consider all songs?
+        # Ideally, we want to split the candidate space.
+        # A song not in ANY candidate live yields 0 entropy (p_no=1).
+        # A song in ALL candidate lives yields 0 entropy (p_yes=1).
+        # So we only need to check songs that appear in the candidate lives.
+
+        relevant_songs = set()
+        for lid in self.possible_live_ids:
+            relevant_songs.update(self.lives[lid]['song_ids'])
+
+        for sid in relevant_songs:
+            if sid in self.guessed_song_ids:
+                continue
+
+            score = self.calculate_entropy(sid)
+            scores.append((sid, score))
+
+        scores.sort(key=lambda x: x[1], reverse=True)
+        return scores[:top_k]
+
 def play_cli():
     game = LoveLiveGame()
     game.start_game()
@@ -161,7 +238,7 @@ def play_cli():
     print("\nGuess the Live Concert!")
 
     while True:
-        prompt = "\n[S] Guess Song / [L] Guess Live / [Q] Quit"
+        prompt = "\n[S] Guess Song / [L] Guess Live / [A] Analyze / [Q] Quit"
         if pruning_enabled:
             prompt += f" (Candidates: {len(game.possible_live_ids)})"
         prompt += ": "
@@ -171,12 +248,25 @@ def play_cli():
             print(f"The answer was: {game.target_live['name']}")
             break
 
+        elif mode == 'A':
+            print("Analyzing best moves (Entropy)...")
+            best_moves = game.get_best_moves(top_k=5)
+            print(f"{'Song Name':<40} | {'Score':<6}")
+            print("-" * 50)
+            for sid, score in best_moves:
+                print(f"{game.songs[sid]['name']:<40} | {score:.4f}")
+            print("-" * 50)
+
         elif mode == 'S':
             s_name = input("Song Name: ")
             sid = game.find_song_id(s_name)
 
             if not sid:
                 print("Song not found.")
+                continue
+
+            if sid in game.guessed_song_ids:
+                print("You already guessed this song!")
                 continue
 
             if pruning_enabled:
@@ -257,6 +347,10 @@ def play_cli():
             lid = game.find_live_id(l_name)
             if not lid:
                 print("Live not found.")
+                continue
+
+            if lid in game.guessed_live_ids:
+                print("You already guessed this live!")
                 continue
 
             print(f"Guessing Live: {game.lives[lid]['name']}")
