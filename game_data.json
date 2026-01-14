@@ -315,88 +315,11 @@
         "1"
       ]
     },
-    "46": {
-      "name": "Private Wars",
-      "englishName": "Private Wars",
-      "artist_ids": [
-        "32"
-      ]
-    },
     "47": {
       "name": "Anemone heart",
       "englishName": "Anemone heart",
       "artist_ids": [
         "25"
-      ]
-    },
-    "258": {
-      "name": "革命ですね？神様！",
-      "englishName": "Kakumei desu ne? Kamisama!",
-      "artist_ids": [
-        "75"
-      ]
-    },
-    "259": {
-      "name": "羽は知ってしまったの？",
-      "englishName": "Hane wa Shitte Shimatta no?",
-      "artist_ids": [
-        "76"
-      ]
-    },
-    "260": {
-      "name": "閃光Resolution",
-      "englishName": "Senkou Resolution",
-      "artist_ids": [
-        "77"
-      ]
-    },
-    "261": {
-      "name": "斯くも憂美な日となりて",
-      "englishName": "Kaku mo Yuubi na Hi to Narite",
-      "artist_ids": [
-        "78"
-      ]
-    },
-    "262": {
-      "name": "I'll smile for yours",
-      "englishName": "I’ll smile for yours",
-      "artist_ids": [
-        "79"
-      ]
-    },
-    "263": {
-      "name": "コドクの回廊",
-      "englishName": "Kodoku no Kairou",
-      "artist_ids": [
-        "80"
-      ]
-    },
-    "264": {
-      "name": "秘密と花園",
-      "englishName": "Himitsu to Hanazono",
-      "artist_ids": [
-        "81"
-      ]
-    },
-    "265": {
-      "name": "ここで待ってるよ",
-      "englishName": "Koko de Matteru yo",
-      "artist_ids": [
-        "82"
-      ]
-    },
-    "266": {
-      "name": "夢☆ONCE AGAIN",
-      "englishName": "Yume☆ONCE AGAIN",
-      "artist_ids": [
-        "83"
-      ]
-    },
-    "267": {
-      "name": "NEURON,NEURON!!",
-      "englishName": "NEURON,NEURON!!",
-      "artist_ids": [
-        "84"
       ]
     },
     "48": {
@@ -504,20 +427,6 @@
         "1"
       ]
     },
-    "63": {
-      "name": "Paradise Live",
-      "englishName": "Paradise Live",
-      "artist_ids": [
-        "1"
-      ]
-    },
-    "64": {
-      "name": "ENDLESS PARADE",
-      "englishName": "ENDLESS PARADE",
-      "artist_ids": [
-        "1"
-      ]
-    },
     "65": {
       "name": "それは僕たちの奇跡",
       "englishName": "Sore wa Bokutachi no Kiseki",
@@ -602,20 +511,6 @@
         "28"
       ]
     },
-    "77": {
-      "name": "これまでのラブライブ！ ～ミュージカルver.～",
-      "englishName": "Koremade no LoveLive! ~Musical ver.~",
-      "artist_ids": [
-        "6"
-      ]
-    },
-    "78": {
-      "name": "Shocking Party",
-      "englishName": "Shocking Party",
-      "artist_ids": [
-        "32"
-      ]
-    },
     "79": {
       "name": "くるりんMIRACLE",
       "englishName": "Kururin MIRACLE",
@@ -633,13 +528,6 @@
     "81": {
       "name": "Shangri-La Shower",
       "englishName": "Shangri-La Shower",
-      "artist_ids": [
-        "1"
-      ]
-    },
-    "82": {
-      "name": "るてしキスキしてる",
-      "englishName": "Ruteshi Kisuki Shiteru",
       "artist_ids": [
         "1"
       ]
@@ -707,20 +595,6 @@
         "1"
       ]
     },
-    "92": {
-      "name": "CheerDay CheerGirl!",
-      "englishName": "CheerDay CheerGirl!",
-      "artist_ids": [
-        "2"
-      ]
-    },
-    "93": {
-      "name": "同じ星が見たい",
-      "englishName": "Onaji Hoshi ga Mitai",
-      "artist_ids": [
-        "3"
-      ]
-    },
     "94": {
       "name": "Silent tonight",
       "englishName": "Silent tonight",
@@ -747,27 +621,6 @@
       "englishName": "Super LOVE=Super LIVE!",
       "artist_ids": [
         "1"
-      ]
-    },
-    "98": {
-      "name": "MUSEUMでどうしたい？",
-      "englishName": "MUSEUM de Dou Shitai?",
-      "artist_ids": [
-        "2"
-      ]
-    },
-    "99": {
-      "name": "最低で最高のParadiso",
-      "englishName": "Saitei de Saikou no Paradiso",
-      "artist_ids": [
-        "4"
-      ]
-    },
-    "100": {
-      "name": "乙姫心で恋宮殿",
-      "englishName": "Otohime Heart de Love Kyuuden",
-      "artist_ids": [
-        "3"
       ]
     },
     "101": {
@@ -812,13 +665,6 @@
         "19"
       ]
     },
-    "249": {
-      "name": "As Time Goes By",
-      "englishName": "As Time Goes By",
-      "artist_ids": [
-        "31"
-      ]
-    },
     "120": {
       "name": "君のこころは輝いてるかい？",
       "englishName": "Kimi no Kokoro wa Kagayaiteru kai?",
@@ -840,20 +686,6 @@
         "33"
       ]
     },
-    "107": {
-      "name": "HEART to HEART!",
-      "englishName": "HEART to HEART!",
-      "artist_ids": [
-        "1"
-      ]
-    },
-    "108": {
-      "name": "嵐のなかの恋だから",
-      "englishName": "Arashi no Naka no Koi dakara",
-      "artist_ids": [
-        "1"
-      ]
-    },
     "109": {
       "name": "WAO-WAO Powerful day!",
       "englishName": "WAO-WAO Powerful day!",
@@ -866,13 +698,6 @@
       "englishName": "NO EXIT ORION",
       "artist_ids": [
         "2"
-      ]
-    },
-    "111": {
-      "name": "これから",
-      "englishName": "Korekara",
-      "artist_ids": [
-        "1"
       ]
     },
     "112": {
@@ -906,13 +731,6 @@
     "116": {
       "name": "MOMENT RING",
       "englishName": "MOMENT RING",
-      "artist_ids": [
-        "1"
-      ]
-    },
-    "117": {
-      "name": "さようならへさよなら！",
-      "englishName": "Sayounara e Sayonara!",
       "artist_ids": [
         "1"
       ]
@@ -1797,20 +1615,6 @@
       "englishName": "Beautiful Moonlight",
       "artist_ids": [
         "63"
-      ]
-    },
-    "118": {
-      "name": "A song for You! You? You!!",
-      "englishName": "A song for You! You? You!!",
-      "artist_ids": [
-        "1"
-      ]
-    },
-    "119": {
-      "name": "なってしまった！",
-      "englishName": "Natte Shimatta!",
-      "artist_ids": [
-        "1"
       ]
     },
     "257": {
@@ -2700,27 +2504,6 @@
         "91"
       ]
     },
-    "396": {
-      "name": "ほんのちょっぴり",
-      "englishName": "Honno Choppiri",
-      "artist_ids": [
-        "92"
-      ]
-    },
-    "397": {
-      "name": "だいすきのうた",
-      "englishName": "Daisuki no Uta",
-      "artist_ids": [
-        "92"
-      ]
-    },
-    "398": {
-      "name": "グソクムシのうた",
-      "englishName": "Gusokumushi no Uta",
-      "artist_ids": [
-        "95"
-      ]
-    },
     "363": {
       "name": "LIVE with a smile!",
       "englishName": "LIVE with a smile!",
@@ -2798,13 +2581,6 @@
         "41"
       ]
     },
-    "401": {
-      "name": "探して！Future",
-      "englishName": "Sagashite! Future",
-      "artist_ids": [
-        "91"
-      ]
-    },
     "402": {
       "name": "クレッシェンドゆ・ら",
       "englishName": "Crescendo Yu・Ra",
@@ -2812,25 +2588,11 @@
         "106"
       ]
     },
-    "403": {
-      "name": "HAPPY TO DO WA！",
-      "englishName": "HAPPY TO DO WA!",
-      "artist_ids": [
-        "107"
-      ]
-    },
     "404": {
       "name": "Stella!",
       "englishName": "Stella!",
       "artist_ids": [
         "109"
-      ]
-    },
-    "405": {
-      "name": "変わらないすべて",
-      "englishName": "Kawaranai Subete",
-      "artist_ids": [
-        "108"
       ]
     },
     "410": {
@@ -3598,111 +3360,6 @@
         "137"
       ]
     },
-    "520": {
-      "name": "あなたがセンター",
-      "englishName": "Anata ga Center",
-      "artist_ids": [
-        "138"
-      ]
-    },
-    "521": {
-      "name": "夢見る世界",
-      "englishName": "Yumemiru Sekai",
-      "artist_ids": [
-        "139"
-      ]
-    },
-    "522": {
-      "name": "伝統の系譜",
-      "englishName": "Dentou no Keifu",
-      "artist_ids": [
-        "140"
-      ]
-    },
-    "523": {
-      "name": "目指せメジャーデビュー",
-      "englishName": "Mezase Major Debut",
-      "artist_ids": [
-        "137"
-      ]
-    },
-    "524": {
-      "name": "輝かしい未来",
-      "englishName": "Kagayakashii Mirai",
-      "artist_ids": [
-        "138"
-      ]
-    },
-    "525": {
-      "name": "なりたい自分",
-      "englishName": "Naritai Jibun",
-      "artist_ids": [
-        "141"
-      ]
-    },
-    "526": {
-      "name": "わが校の流儀",
-      "englishName": "Wagakou no Ryuugi",
-      "artist_ids": [
-        "143"
-      ]
-    },
-    "527": {
-      "name": "それぞれの役割",
-      "englishName": "Sorezore no Yakuwari",
-      "artist_ids": [
-        "144"
-      ]
-    },
-    "528": {
-      "name": "平凡な未来",
-      "englishName": "Heibon na Mirai",
-      "artist_ids": [
-        "139"
-      ]
-    },
-    "529": {
-      "name": "噂の転校生",
-      "englishName": "Uwasa no Tenkousei",
-      "artist_ids": [
-        "145"
-      ]
-    },
-    "530": {
-      "name": "発足！椿咲花アイドル部",
-      "englishName": "Hossoku! Tsubakisakuhana Idol Club",
-      "artist_ids": [
-        "146"
-      ]
-    },
-    "531": {
-      "name": "新しいチャンス",
-      "englishName": "Atarashii Chance",
-      "artist_ids": [
-        "147"
-      ]
-    },
-    "532": {
-      "name": "親友",
-      "englishName": "Shinyuu",
-      "artist_ids": [
-        "148"
-      ]
-    },
-    "533": {
-      "name": "深まる仲",
-      "englishName": "Fukamaru Naka",
-      "artist_ids": [
-        "150"
-      ]
-    },
-    "534": {
-      "name": "なくして初めて気づくこと",
-      "englishName": "Nakushite Hajimete Kizuku Koto",
-      "artist_ids": [
-        "145"
-      ]
-    },
     "535": {
       "name": "君と見る夢",
       "englishName": "Kimi to Miru Yume",
@@ -3710,32 +3367,11 @@
         "152"
       ]
     },
-    "536": {
-      "name": "明日はきっと",
-      "englishName": "Ashita wa Kitto",
-      "artist_ids": [
-        "151"
-      ]
-    },
-    "537": {
-      "name": "いつかわたしも",
-      "englishName": "Itsuka Watashi mo",
-      "artist_ids": [
-        "145"
-      ]
-    },
     "538": {
       "name": "ゆめの羅針盤",
       "englishName": "Yume no Compass",
       "artist_ids": [
         "139"
-      ]
-    },
-    "539": {
-      "name": "真っ白なキャンバス",
-      "englishName": "Masshiro na Canvas",
-      "artist_ids": [
-        "154"
       ]
     },
     "499": {
@@ -3890,13 +3526,6 @@
       "englishName": "Velour",
       "artist_ids": [
         "161"
-      ]
-    },
-    "569": {
-      "name": "SILENT PAIN",
-      "englishName": "SILENT PAIN",
-      "artist_ids": [
-        "33"
       ]
     },
     "570": {
@@ -4564,74 +4193,11 @@
         "176"
       ]
     },
-    "635": {
-      "name": "応援してね♡",
-      "englishName": "Ouen Shite ne♡",
-      "artist_ids": [
-        "177"
-      ]
-    },
     "636": {
       "name": "主役になれない主役",
       "englishName": "Shuyaku ni Narenai Shuyaku",
       "artist_ids": [
         "178"
-      ]
-    },
-    "637": {
-      "name": "So My Way",
-      "englishName": "So My Way",
-      "artist_ids": [
-        "179"
-      ]
-    },
-    "638": {
-      "name": "意識し合うとか惹かれ合うとか",
-      "englishName": "Ishiki Shiau Toka Hikareau Toka",
-      "artist_ids": [
-        "180"
-      ]
-    },
-    "639": {
-      "name": "あなたに夢ちゅう",
-      "englishName": "Anata ni Muchuu",
-      "artist_ids": [
-        "181"
-      ]
-    },
-    "640": {
-      "name": "パフェパフェ行進曲",
-      "englishName": "Parfait Parfait Koushinkyoku",
-      "artist_ids": [
-        "182"
-      ]
-    },
-    "641": {
-      "name": "わたしの星座",
-      "englishName": "Watashi no Seiza",
-      "artist_ids": [
-        "183"
-      ]
-    },
-    "642": {
-      "name": "この先もずっと",
-      "englishName": "Kono Saki mo Zutto",
-      "artist_ids": [
-        "184"
-      ]
-    },
-    "643": {
-      "name": "夢見ガチガール",
-      "englishName": "Yumemigachi Girl",
-      "artist_ids": [
-        "185"
-      ]
-    },
-    "644": {
-      "name": "青春の讃歌",
-      "englishName": "Seishun no Sanka",
-      "artist_ids": [
-        "186"
       ]
     },
     "645": {
@@ -4830,13 +4396,6 @@
         "33"
       ]
     },
-    "699": {
-      "name": "ふたりでひとつ",
-      "englishName": "Futari de Hitotsu",
-      "artist_ids": [
-        "196"
-      ]
-    },
     "707": {
       "name": "笑顔のPromise",
       "englishName": "Egao no Promise",
@@ -4894,13 +4453,6 @@
         "197"
       ]
     },
-    "709": {
-      "name": "Poka Poka 日和",
-      "englishName": "Poka Poka Biyori",
-      "artist_ids": [
-        "198"
-      ]
-    },
     "711": {
       "name": "ひとひらだけ",
       "englishName": "Hitohira Dake",
@@ -4913,20 +4465,6 @@
       "englishName": "Musubu Melody",
       "artist_ids": [
         "91"
-      ]
-    },
-    "717": {
-      "name": "White Delight",
-      "englishName": "White Delight",
-      "artist_ids": [
-        "98"
-      ]
-    },
-    "718": {
-      "name": "Joy is All Around",
-      "englishName": "Joy is All Around",
-      "artist_ids": [
-        "98"
       ]
     },
     "695": {
@@ -4950,20 +4488,6 @@
         "113"
       ]
     },
-    "721": {
-      "name": "Starry Night Serenade",
-      "englishName": "Starry Night Serenade",
-      "artist_ids": [
-        "71"
-      ]
-    },
-    "722": {
-      "name": "ドリーム☆シューター",
-      "englishName": "Dream☆Shooter",
-      "artist_ids": [
-        "71"
-      ]
-    },
     "720": {
       "name": "AURORA FLOWER",
       "englishName": "AURORA FLOWER",
@@ -4976,20 +4500,6 @@
       "englishName": "Gekka Bijin",
       "artist_ids": [
         "133"
-      ]
-    },
-    "737": {
-      "name": "The Sweetest Time♡",
-      "englishName": "The Sweetest Time♡",
-      "artist_ids": [
-        "64"
-      ]
-    },
-    "738": {
-      "name": "secret",
-      "englishName": "Secret",
-      "artist_ids": [
-        "64"
       ]
     },
     "735": {
@@ -5083,27 +4593,6 @@
         "209"
       ]
     },
-    "741": {
-      "name": "罪DA・YO・NE",
-      "englishName": "Tsumi DA・YO・NE",
-      "artist_ids": [
-        "121"
-      ]
-    },
-    "745": {
-      "name": "にじいろ☆ルミエール",
-      "englishName": "Nijiiro☆Lumiere",
-      "artist_ids": [
-        "65"
-      ]
-    },
-    "746": {
-      "name": "Hello! OK??",
-      "englishName": "Hello! OK??",
-      "artist_ids": [
-        "65"
-      ]
-    },
     "747": {
       "name": "いつでも、いつまでも",
       "englishName": "Itsudemo, Itsumademo",
@@ -5116,13 +4605,6 @@
       "englishName": "Ittan",
       "artist_ids": [
         "133"
-      ]
-    },
-    "742": {
-      "name": "想われマリオネット",
-      "englishName": "Omoware Marionette",
-      "artist_ids": [
-        "202"
       ]
     },
     "719": {
@@ -5160,20 +4642,6 @@
         "133"
       ]
     },
-    "750": {
-      "name": "What a Beautiful Day!",
-      "englishName": "What a Beautiful Day!",
-      "artist_ids": [
-        "69"
-      ]
-    },
-    "751": {
-      "name": "INNER TRAVEL",
-      "englishName": "INNER TRAVEL",
-      "artist_ids": [
-        "69"
-      ]
-    },
     "716": {
       "name": "Eternalize Love!!",
       "englishName": "Eternalize Love!!",
@@ -5202,90 +4670,6 @@
         "201"
       ]
     },
-    "749": {
-      "name": "ティーンエイジ・ロンリネス",
-      "englishName": "Teenage・Loneliness",
-      "artist_ids": [
-        "203"
-      ]
-    },
-    "759": {
-      "name": "Over Over",
-      "englishName": "Over Over",
-      "artist_ids": [
-        "92"
-      ]
-    },
-    "760": {
-      "name": "Sky Linker",
-      "englishName": "Sky Linker",
-      "artist_ids": [
-        "118"
-      ]
-    },
-    "761": {
-      "name": "LiLiA",
-      "englishName": "LiLiA",
-      "artist_ids": [
-        "119"
-      ]
-    },
-    "762": {
-      "name": "てくてく日和",
-      "englishName": "Tekuteku Biyori",
-      "artist_ids": [
-        "113"
-      ]
-    },
-    "763": {
-      "name": "ワイルドカード",
-      "englishName": "Wild Card",
-      "artist_ids": [
-        "191"
-      ]
-    },
-    "764": {
-      "name": "ファンダメンタル",
-      "englishName": "Fundamental",
-      "artist_ids": [
-        "93"
-      ]
-    },
-    "765": {
-      "name": "Just woo!!",
-      "englishName": "Just woo!!",
-      "artist_ids": [
-        "95"
-      ]
-    },
-    "766": {
-      "name": "パステルコラージュ",
-      "englishName": "Pastel Collage",
-      "artist_ids": [
-        "117"
-      ]
-    },
-    "767": {
-      "name": "結び葉",
-      "englishName": "Musubiba",
-      "artist_ids": [
-        "96"
-      ]
-    },
-    "768": {
-      "name": "ルカ",
-      "englishName": "Luca",
-      "artist_ids": [
-        "114"
-      ]
-    },
-    "769": {
-      "name": "Rhythm",
-      "englishName": "Rhythm",
-      "artist_ids": [
-        "94"
-      ]
-    },
     "771": {
       "name": "Aspire",
       "englishName": "Aspire",
@@ -5312,20 +4696,6 @@
       "englishName": "Yappa Tenshi!",
       "artist_ids": [
         "212"
-      ]
-    },
-    "775": {
-      "name": "ピチチャプティントンタントン",
-      "englishName": "Pichi Chapu Tinton Tanton",
-      "artist_ids": [
-        "66"
-      ]
-    },
-    "776": {
-      "name": "My Untold Diary",
-      "englishName": "My Untold Diary",
-      "artist_ids": [
-        "66"
       ]
     },
     "777": {
@@ -5370,27 +4740,6 @@
         "133"
       ]
     },
-    "785": {
-      "name": "Ride the wave!",
-      "englishName": "Ride the wave!",
-      "artist_ids": [
-        "68"
-      ]
-    },
-    "786": {
-      "name": "まんまるお月さま",
-      "englishName": "Manmaru Otsukisama",
-      "artist_ids": [
-        "68"
-      ]
-    },
-    "790": {
-      "name": "オレンジのままで",
-      "englishName": "Orange no Mama de",
-      "artist_ids": [
-        "91"
-      ]
-    },
     "770": {
       "name": "What is my LIFE?",
       "englishName": "What is my LIFE?",
@@ -5403,20 +4752,6 @@
       "englishName": "Himitsu Michi",
       "artist_ids": [
         "213"
-      ]
-    },
-    "800": {
-      "name": "SUMMER WARNING",
-      "englishName": "SUMMER WARNING",
-      "artist_ids": [
-        "72"
-      ]
-    },
-    "801": {
-      "name": "まみむめMotor Girl",
-      "englishName": "MaMiMuMe Motor Girl",
-      "artist_ids": [
-        "72"
       ]
     },
     "794": {
@@ -5531,20 +4866,6 @@
         "217"
       ]
     },
-    "808": {
-      "name": "酸欠",
-      "englishName": "Sanketsu",
-      "artist_ids": [
-        "85"
-      ]
-    },
-    "809": {
-      "name": "余韻",
-      "englishName": "Yoin",
-      "artist_ids": [
-        "85"
-      ]
-    },
     "802": {
       "name": "HomeRun Queen!!",
       "englishName": "HomeRun Queen!!",
@@ -5629,20 +4950,6 @@
         "221"
       ]
     },
-    "821": {
-      "name": "Dress Code",
-      "englishName": "Dress Code",
-      "artist_ids": [
-        "67"
-      ]
-    },
-    "822": {
-      "name": "Wake Up!!",
-      "englishName": "Wake Up!!",
-      "artist_ids": [
-        "67"
-      ]
-    },
     "799": {
       "name": "Little Green委員会",
       "englishName": "Little Green Iinkai",
@@ -5671,13 +4978,6 @@
         "223"
       ]
     },
-    "823": {
-      "name": "High！モチベーション",
-      "englishName": "High! Motivation",
-      "artist_ids": [
-        "231"
-      ]
-    },
     "831": {
       "name": "OPEN THE G☆TE!!!",
       "englishName": "OPEN THE G☆TE!!!",
@@ -5685,67 +4985,11 @@
         "91"
       ]
     },
-    "810": {
-      "name": "Cheer Mode",
-      "englishName": "Cheer Mode",
-      "artist_ids": [
-        "228"
-      ]
-    },
     "820": {
       "name": "約束になれ僕らの歌",
       "englishName": "Yakusoku ni Nare Bokura no Uta",
       "artist_ids": [
         "60"
-      ]
-    },
-    "837": {
-      "name": "いとしき夢よ いざないて",
-      "englishName": "Itoshiki Yume yo Izanaite",
-      "artist_ids": [
-        "85"
-      ]
-    },
-    "838": {
-      "name": "Circle of Love",
-      "englishName": "Circle of Love",
-      "artist_ids": [
-        "68"
-      ]
-    },
-    "839": {
-      "name": "Burn!!",
-      "englishName": "Burn!!",
-      "artist_ids": [
-        "70"
-      ]
-    },
-    "840": {
-      "name": "Stay",
-      "englishName": "Stay",
-      "artist_ids": [
-        "72"
-      ]
-    },
-    "841": {
-      "name": "Like a Treasure",
-      "englishName": "Like a Treasure",
-      "artist_ids": [
-        "98"
-      ]
-    },
-    "833": {
-      "name": "YES! to Tomorrow",
-      "englishName": "YES! to Tomorrow",
-      "artist_ids": [
-        "70"
-      ]
-    },
-    "834": {
-      "name": "think of you",
-      "englishName": "Think of you",
-      "artist_ids": [
-        "70"
       ]
     },
     "832": {
@@ -5783,74 +5027,11 @@
         "134"
       ]
     },
-    "830": {
-      "name": "バイタルサイン",
-      "englishName": "Vital Sign",
-      "artist_ids": [
-        "136"
-      ]
-    },
-    "844": {
-      "name": "ガランドFlash",
-      "englishName": "Garando Flash",
-      "artist_ids": [
-        "135"
-      ]
-    },
     "854": {
       "name": "シアター生き様",
       "englishName": "Theater Ikizama",
       "artist_ids": [
         "201"
-      ]
-    },
-    "847": {
-      "name": "VIVA！",
-      "englishName": "VIVA!",
-      "artist_ids": [
-        "232"
-      ]
-    },
-    "848": {
-      "name": "DIZZY LILY VALLEY",
-      "englishName": "DIZZY LILY VALLEY",
-      "artist_ids": [
-        "233"
-      ]
-    },
-    "849": {
-      "name": "SAVOTINA!!",
-      "englishName": "SAVOTINA!!",
-      "artist_ids": [
-        "234"
-      ]
-    },
-    "850": {
-      "name": "SOL de ROSA",
-      "englishName": "SOL de ROSA",
-      "artist_ids": [
-        "235"
-      ]
-    },
-    "851": {
-      "name": "ワンダーメイツ",
-      "englishName": "Wondermates",
-      "artist_ids": [
-        "236"
-      ]
-    },
-    "852": {
-      "name": "ふわふわり",
-      "englishName": "Fuwa Fuwari",
-      "artist_ids": [
-        "237"
-      ]
-    },
-    "853": {
-      "name": "Boooooom Boooooom Bee!!",
-      "englishName": "Boooooom Boooooom Bee!!",
-      "artist_ids": [
-        "60"
       ]
     },
     "616": {
@@ -5874,95 +5055,11 @@
         "133"
       ]
     },
-    "845": {
-      "name": "Bravo!",
-      "englishName": "Bravo!",
-      "artist_ids": [
-        "97"
-      ]
-    },
-    "846": {
-      "name": "Seabird",
-      "englishName": "Seabird",
-      "artist_ids": [
-        "97"
-      ]
-    },
-    "725": {
-      "name": "ニコイチ",
-      "englishName": "Nikoichi",
-      "artist_ids": [
-        "204"
-      ]
-    },
-    "726": {
-      "name": "キュンキュンずっと",
-      "englishName": "Kyun Kyun Zutto",
-      "artist_ids": [
-        "205"
-      ]
-    },
-    "727": {
-      "name": "みんないろ",
-      "englishName": "Minna Iro",
-      "artist_ids": [
-        "206"
-      ]
-    },
-    "728": {
-      "name": "チョコっと大作戦▲",
-      "englishName": "Chocotto Daisakusen▲",
-      "artist_ids": [
-        "207"
-      ]
-    },
     "826": {
       "name": "一生に夢が咲くように",
       "englishName": "Hitoyo ni Yume ga Saku You ni",
       "artist_ids": [
         "133"
-      ]
-    },
-    "856": {
-      "name": "Hip, hip, hooray!",
-      "englishName": "Hip, hip, hooray!",
-      "artist_ids": [
-        "136"
-      ]
-    },
-    "857": {
-      "name": "令嬢モブ！",
-      "englishName": "Reijou Mob!",
-      "artist_ids": [
-        "201"
-      ]
-    },
-    "858": {
-      "name": "REGAIN AGAIN LLLLOVE",
-      "englishName": "REGAIN AGAIN LLLLOVE",
-      "artist_ids": [
-        "213"
-      ]
-    },
-    "859": {
-      "name": "雪舞う空と二秒の永遠",
-      "englishName": "Yuki Mau Sora to Nibyou no Eien",
-      "artist_ids": [
-        "133"
-      ]
-    },
-    "860": {
-      "name": "Sayo-Shigure",
-      "englishName": "Sayo-Shigure",
-      "artist_ids": [
-        "134"
-      ]
-    },
-    "861": {
-      "name": "ハロめぐ讃歌",
-      "englishName": "Hello Megu Sanka",
-      "artist_ids": [
-        "212"
       ]
     }
   },
@@ -6079,18 +5176,6 @@
       "name": "絢瀬絵里、園田海未",
       "englishName": "Eli Ayase, Umi Sonoda"
     },
-    "30": {
-      "name": "絢瀬絵里、西木野真姫、東條 希",
-      "englishName": "Eli Ayase, Maki Nishikino, Nozomi Tojo"
-    },
-    "31": {
-      "name": "女性シンガー",
-      "englishName": null
-    },
-    "32": {
-      "name": "A-RISE",
-      "englishName": null
-    },
     "33": {
       "name": "Aqours",
       "englishName": null
@@ -6191,14 +5276,6 @@
       "name": "国木田花丸、黒澤ルビィ",
       "englishName": "Hanamaru Kunikida, Ruby Kurosawa"
     },
-    "58": {
-      "name": "高海千歌、桜内梨子",
-      "englishName": "Chika Takami, Riko Sakurauchi"
-    },
-    "59": {
-      "name": "桜内梨子、津島善子",
-      "englishName": "Riko Sakurauchi, Yoshiko Tsushima"
-    },
     "60": {
       "name": "虹ヶ咲学園スクールアイドル同好会",
       "englishName": "Nijigasaki High School Idol Club"
@@ -6251,52 +5328,8 @@
       "name": "天王寺璃奈",
       "englishName": "Rina Tennoji"
     },
-    "73": {
-      "name": "私立浦の星女学院一同",
-      "englishName": "Uranohoshi Girls' High School"
-    },
     "74": {
       "name": "シャゼリア☆キッス",
-      "englishName": null
-    },
-    "75": {
-      "name": "早乙女リリエル、竜崎クロウエル、白鳥ラナエル、綾小路シェリエル、東條ネルエル",
-      "englishName": null
-    },
-    "76": {
-      "name": "早乙女リリエル",
-      "englishName": null
-    },
-    "77": {
-      "name": "竜崎クロウエル",
-      "englishName": null
-    },
-    "78": {
-      "name": "白鳥ラナエル",
-      "englishName": null
-    },
-    "79": {
-      "name": "綾小路シェリエル",
-      "englishName": null
-    },
-    "80": {
-      "name": "東條ネルエル",
-      "englishName": null
-    },
-    "81": {
-      "name": "恋塚フルーネティ",
-      "englishName": null
-    },
-    "82": {
-      "name": "神楽坂ミナモ",
-      "englishName": null
-    },
-    "83": {
-      "name": "アサギ",
-      "englishName": null
-    },
-    "84": {
-      "name": "ミザリィ",
       "englishName": null
     },
     "85": {
@@ -6363,25 +5396,9 @@
       "name": "澁谷かのん、唐 可可、嵐 千砂都、平安名すみれ",
       "englishName": "Kanon Shibuya, Keke Tang, Chisato Arashi, Sumire Heanna"
     },
-    "104": {
-      "name": "唐 可可、嵐 千砂都、平安名すみれ、葉月 恋",
-      "englishName": "Keke Tang, Chisato Arashi, Sumire Heanna, Ren Hazuki"
-    },
-    "105": {
-      "name": "唐 可可、平安名すみれ",
-      "englishName": "Keke Tang, Sumire Heanna"
-    },
     "106": {
       "name": "唐 可可、葉月 恋",
       "englishName": "Keke Tang, Ren Hazuki"
-    },
-    "107": {
-      "name": "唐 可可、平安名すみれ、葉月 恋",
-      "englishName": "Keke Tang, Sumire Heanna, Ren Hazuki"
-    },
-    "108": {
-      "name": "澁谷かのん、嵐 千砂都",
-      "englishName": "Kanon Shibuya, Chisato Arashi"
     },
     "109": {
       "name": "澁谷かのん、嵐 千砂都、平安名すみれ",
@@ -6419,45 +5436,13 @@
       "name": "若菜四季",
       "englishName": "Shiki Wakana"
     },
-    "120": {
-      "name": "澁谷かのん、唐 可可、嵐 千砂都、平安名すみれ、葉月 恋、桜小路きな子",
-      "englishName": "Kanon Shibuya, Keke Tang, Chisato Arashi, Sumire Heanna, Ren Hazuki, Kinako Sakurakoji"
-    },
-    "121": {
-      "name": "米女メイ、若菜四季",
-      "englishName": "Mei Yoneme, Shiki Wakana"
-    },
     "122": {
       "name": "桜小路きな子、米女メイ、若菜四季、鬼塚夏美",
       "englishName": "Kinako Sakurakoji, Mei Yoneme, Shiki Wakana, Natsumi Onitsuka"
     },
-    "124": {
-      "name": "椿 ルリカ、皇 ユズハ、北条ユキノ、天草ヒカル、三笠マーヤ、滝沢アンズ、若槻ミスズ、来栖トア、鈴賀レナ、晴風サヤカ",
-      "englishName": "Tsubaki Rurika, Sumeragi Yuzuha, Hojo Yukino, Amakusa Hikaru, Mikasa Maya, Takizawa Anzu, Wakatsuki Misuzu, Kurusu Toa, Suzuka Rena, Harukaze Sayaka"
-    },
-    "125": {
-      "name": "椿 ルリカ、皇 ユズハ、北条ユキノ、天草ヒカル、三笠マーヤ",
-      "englishName": "Tsubaki Rurika, Sumeragi Yuzuha, Hojo Yukino, Amakusa Hikaru, Mikasa Maya"
-    },
-    "126": {
-      "name": "滝沢アンズ、若槻ミスズ、来栖トア、鈴賀レナ、晴風サヤカ",
-      "englishName": "Takizawa Anzu, Wakatsuki Misuzu, Kurusu Toa, Suzuka Rena, Harukaze Sayaka"
-    },
     "127": {
       "name": "スクールアイドルミュージカル",
       "englishName": "School Idol Musical"
-    },
-    "129": {
-      "name": "高咲 侑、中須かすみ、桜坂しずく、天王寺璃奈、三船栞子",
-      "englishName": "Takasaki Yu, Kasumi Nakasu, Shizuku Osaka, Rina Tennoji, Shioriko Mifune"
-    },
-    "130": {
-      "name": "高咲 侑、上原歩夢、宮下 愛、優木せつ菜、鐘 嵐珠",
-      "englishName": "Takasaki Yu, Ayumu Uehara, Ai Miyashita, Setsuna Yuki, Lanzhu Zhong"
-    },
-    "131": {
-      "name": "高咲 侑、朝香果林、近江彼方、エマ・ヴェルデ、ミア・テイラー",
-      "englishName": "Takasaki Yu, Karin Asaka, Kanata Konoe, Emma Verde, Mia Taylor"
     },
     "133": {
       "name": "蓮ノ空女学院スクールアイドルクラブ",
@@ -6479,73 +5464,13 @@
       "name": "関根優那（滝沢アンズ役）、西葉瑞希（若槻ミスズ役）、星守紗凪（来栖トア役）、三田美吹（鈴賀レナ役）、青山瑠里（晴風サヤカ役）",
       "englishName": "Sekine Yuna (as Takizawa Anzu), Mizuki Nishiba (as Wakatsuki Misuzu), Hoshimori Sana (as Kurusu Toa), Mita Ibuki (as Suzuka Rena), Aoyama Ruri (as Harukaze Sayaka)"
     },
-    "138": {
-      "name": "関根優那（滝沢アンズ役）、西葉瑞希（若槻ミスズ役）、星守紗凪（来栖トア役）、三田美吹（鈴賀レナ役）、青山瑠里（晴風サヤカ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
-    },
     "139": {
       "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）",
       "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nanami Asai (as Sumeragi Yuzuha), Ann Julia (as Hojo Yukino), Koyama Rina (as Amakusa Hikaru), Sato Minami (as Mikasa Maya)"
     },
-    "140": {
-      "name": "堀内まり菜（椿 ルリカ役）、蒼乃夕妃（椿マドカ役）",
-      "englishName": null
-    },
-    "141": {
-      "name": "関根優那（滝沢アンズ役）",
-      "englishName": "Takizawa Anzu"
-    },
-    "142": {
-      "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）、西葉瑞希（若槻ミスズ役）、星守紗凪（来栖トア役）、三田美吹（鈴賀レナ役）、青山瑠里（晴風サヤカ役）",
-      "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nanami Asai (as Sumeragi Yuzuha), Ann Julia (as Hojo Yukino), Koyama Rina (as Amakusa Hikaru), Sato Minami (as Mikasa Maya), Mizuki Nishiba (as Wakatsuki Misuzu), Hoshimori Sana (as Kurusu Toa), Mita Ibuki (as Suzuka Rena), Aoyama Ruri (as Harukaze Sayaka)"
-    },
-    "143": {
-      "name": "蒼乃夕妃（椿マドカ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
-    },
-    "144": {
-      "name": "西葉瑞希（若槻ミスズ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
-    },
-    "145": {
-      "name": "大原万由子、金子 楓、鈴木まゆり、中﨑花音、藤本くるみ、古沢朋恵、森本めい、渡辺菜花",
-      "englishName": null
-    },
-    "146": {
-      "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）、関根優那（滝沢アンズ役）、西葉瑞希（若槻ミスズ役）、星守紗凪（来栖トア役）、三田美吹（鈴賀レナ役）、青山瑠里（晴風サヤカ役）、蒼乃夕妃（椿マドカ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
-    },
-    "147": {
-      "name": "西葉瑞希（若槻ミスズ役）、星守紗凪（来栖トア役）、三田美吹（鈴賀レナ役）、青山瑠里（晴風サヤカ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
-    },
-    "148": {
-      "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）",
-      "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nanami Asai (as Sumeragi Yuzuha)"
-    },
-    "149": {
-      "name": "西葉瑞希（若槻ミスズ役）、星守紗凪（来栖トア役）、三田美吹（鈴賀レナ役）、青山瑠里（晴風サヤカ役）",
-      "englishName": "Mizuki Nishiba (as Wakatsuki Misuzu), Hoshimori Sana (as Kurusu Toa), Mita Ibuki (as Suzuka Rena), Aoyama Ruri (as Harukaze Sayaka)"
-    },
-    "150": {
-      "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）、関根優那（滝沢アンズ役）",
-      "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nanami Asai (as Sumeragi Yuzuha), Ann Julia (as Hojo Yukino), Koyama Rina (as Amakusa Hikaru), Sato Minami (as Mikasa Maya), Sekine Yuna (as Takizawa Anzu)"
-    },
-    "151": {
-      "name": "堀内まり菜（椿 ルリカ役）",
-      "englishName": "Tsubaki Rurika"
-    },
     "152": {
       "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）、関根優那（滝沢アンズ役）",
       "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nanami Asai (as Sumeragi Yuzuha), Ann Julia (as Hojo Yukino), Koyama Rina (as Amakusa Hikaru), Sato Minami (as Mikasa Maya), Sekine Yuna (as Takizawa Anzu)"
-    },
-    "153": {
-      "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）、関根優那（滝沢アンズ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
-    },
-    "154": {
-      "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）、関根優那（滝沢アンズ役）、西葉瑞希（若槻ミスズ役）、星守紗凪（来栖トア役）、三田美吹（鈴賀レナ役）、青山瑠里（晴風サヤカ役）",
-      "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nanami Asai (as Sumeragi Yuzuha), Ann Julia (as Hojo Yukino), Koyama Rina (as Amakusa Hikaru), Sato Minami (as Mikasa Maya), Sekine Yuna (as Takizawa Anzu), Mizuki Nishiba (as Wakatsuki Misuzu), Hoshimori Sana (as Kurusu Toa), Mita Ibuki (as Suzuka Rena), Aoyama Ruri (as Harukaze Sayaka)"
     },
     "155": {
       "name": "Aqours feat. 初音ミク",
@@ -6631,45 +5556,9 @@
       "name": "堀内まり菜（椿 ルリカ役）、西田有愛（来栖トア役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）",
       "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nishida Arie (as Kurusu Toa), Koyama Rina (as Amakusa Hikaru), Sato Minami (as Mikasa Maya)"
     },
-    "177": {
-      "name": "関根優那（滝沢アンズ役）、杏 ジュリア（北条ユキノ役）、三田美吹（鈴賀レナ役）、西田ひらり（晴風サヤカ役）",
-      "englishName": "Sekine Yuna (as Takizawa Anzu), Ann Julia (as Hojo Yukino), Mita Ibuki (as Suzuka Rena), Nishida Hirari (as Harukaze Sayaka)"
-    },
     "178": {
       "name": "浅井七海（皇 ユズハ役）、西葉瑞希（若槻ミスズ役）",
       "englishName": "Nanami Asai (as Sumeragi Yuzuha), Mizuki Nishiba (as Wakatsuki Misuzu)"
-    },
-    "179": {
-      "name": "小山璃奈（天草ヒカル役）、西田ひらり（晴風サヤカ役）",
-      "englishName": "Koyama Rina (as Amakusa Hikaru), Nishida Hirari (as Harukaze Sayaka)"
-    },
-    "180": {
-      "name": "堀内まり菜（椿 ルリカ役）、関根優那（滝沢アンズ役）、蒼乃夕妃（椿マドカ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
-    },
-    "181": {
-      "name": "杏 ジュリア（北条ユキノ役）、西田有愛（来栖トア役）",
-      "englishName": "Ann Julia (as Hojo Yukino), Nishida Arie (as Kurusu Toa)"
-    },
-    "182": {
-      "name": "浅井七海（皇 ユズハ役）、三田美吹（鈴賀レナ役）、佐藤美波（三笠マーヤ役）",
-      "englishName": "Nanami Asai (as Sumeragi Yuzuha), Mita Ibuki (as Suzuka Rena), Sato Minami (as Mikasa Maya)"
-    },
-    "183": {
-      "name": "西葉瑞希（若槻ミスズ役）",
-      "englishName": "Wakatsuki Misuzu"
-    },
-    "184": {
-      "name": "堀内まり菜（椿 ルリカ役）、浅井七海（皇 ユズハ役）、杏 ジュリア（北条ユキノ役）、小山璃奈（天草ヒカル役）、佐藤美波（三笠マーヤ役）",
-      "englishName": "Horiuchi Marina (as Tsubaki Rurika), Nanami Asai (as Sumeragi Yuzuha), Ann Julia (as Hojo Yukino), Koyama Rina (as Amakusa Hikaru), Sato Minami (as Mikasa Maya)"
-    },
-    "185": {
-      "name": "関根優那（滝沢アンズ役）、西葉瑞希（若槻ミスズ役）、西田有愛（来栖トア役）、三田美吹（鈴賀レナ役）、西田ひらり（晴風サヤカ役）",
-      "englishName": "Sekine Yuna (as Takizawa Anzu), Mizuki Nishiba (as Wakatsuki Misuzu), Nishida Arie (as Kurusu Toa), Mita Ibuki (as Suzuka Rena), Nishida Hirari (as Harukaze Sayaka)"
-    },
-    "186": {
-      "name": "蒼乃夕妃（椿マドカ役）、岡村さやか（滝沢キョウカ役）",
-      "englishName": null
     },
     "187": {
       "name": "椿滝桜女学院高等学校スクールアイドル部",
@@ -6707,53 +5596,17 @@
       "name": "Liella!、澁谷かのん、ウィーン・マルガレーテ、鬼塚冬毬",
       "englishName": "Liella!, Kanon Shibuya, Margarete Wien, Tomari Onitsuka"
     },
-    "196": {
-      "name": "ヨハネ、ライラプス",
-      "englishName": null
-    },
     "197": {
       "name": "ウィーン・マルガレーテ、鬼塚冬毬",
       "englishName": "Margarete Wien, Tomari Onitsuka"
-    },
-    "198": {
-      "name": "上原歩夢、宮下 愛、優木せつ菜、鐘 嵐珠",
-      "englishName": "Ayumu Uehara, Ai Miyashita, Setsuna Yuki, Lanzhu Zhong"
     },
     "199": {
       "name": "百生吟子、徒町小鈴、安養寺姫芽",
       "englishName": "Ginko Momose, Kosuzu Kachimachi, Hime Anyoji"
     },
-    "200": {
-      "name": "葉月 恋、桜小路きな子",
-      "englishName": "Ren Hazuki, Kinako Sakurakoji"
-    },
     "201": {
       "name": "Edel Note",
       "englishName": null
-    },
-    "202": {
-      "name": "澁谷かのん、嵐 千砂都、葉月 恋、鬼塚夏美、ウィーン・マルガレーテ",
-      "englishName": "Kanon Shibuya, Chisato Arashi, Ren Hazuki, Natsumi Onitsuka, Margarete Wien"
-    },
-    "203": {
-      "name": "唐 可可、平安名すみれ、桜小路きな子、鬼塚冬毬",
-      "englishName": "Keke Tang, Sumire Heanna, Kinako Sakurakoji, Tomari Onitsuka"
-    },
-    "204": {
-      "name": "天草ヒカル、三笠マーヤ",
-      "englishName": "Amakusa Hikaru, Mikasa Maya"
-    },
-    "205": {
-      "name": "滝沢アンズ",
-      "englishName": "Takizawa Anzu"
-    },
-    "206": {
-      "name": "若槻ミスズ、来栖トア、鈴賀レナ、晴風サヤカ",
-      "englishName": "Wakatsuki Misuzu, Kurusu Toa, Suzuka Rena, Harukaze Sayaka"
-    },
-    "207": {
-      "name": "椿 ルリカ、皇 ユズハ、北条ユキノ",
-      "englishName": "Tsubaki Rurika, Sumeragi Yuzuha, Hojo Yukino"
     },
     "208": {
       "name": "日野下花帆、村野さやか、大沢瑠璃乃",
@@ -6819,48 +5672,12 @@
       "name": "佐々木翔音",
       "englishName": "Shion Sasaki"
     },
-    "228": {
-      "name": "A.L.A.N",
-      "englishName": null
-    },
     "229": {
       "name": "Ruri&To",
       "englishName": null
     },
     "230": {
       "name": "PRINCEε>ε>",
-      "englishName": null
-    },
-    "231": {
-      "name": "桜小路きな子、米女メイ、若菜四季、鬼塚夏美、ウィーン・マルガレーテ、鬼塚冬毬",
-      "englishName": "Kinako Sakurakoji, Mei Yoneme, Shiki Wakana, Natsumi Onitsuka, Margarete Wien, Tomari Onitsuka"
-    },
-    "232": {
-      "name": "天王寺璃奈、三船栞子",
-      "englishName": "Rina Tennoji, Shioriko Mifune"
-    },
-    "233": {
-      "name": "上原歩夢、朝香果林",
-      "englishName": "Ayumu Uehara, Karin Asaka"
-    },
-    "234": {
-      "name": "優木せつ菜、ミア・テイラー",
-      "englishName": "Setsuna Yuki, Mia Taylor"
-    },
-    "235": {
-      "name": "宮下 愛、鐘 嵐珠",
-      "englishName": "Ai Miyashita, Lanzhu Zhong"
-    },
-    "236": {
-      "name": "桜坂しずく、近江彼方",
-      "englishName": "Shizuku Osaka, Kanata Konoe"
-    },
-    "237": {
-      "name": "中須かすみ、エマ・ヴェルデ",
-      "englishName": "Kasumi Nakasu, Emma Verde"
-    },
-    "238": {
-      "name": "GKSS",
       "englishName": null
     }
   },

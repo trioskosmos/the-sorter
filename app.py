@@ -41,12 +41,11 @@ try:
     with open('mappings.json', 'r') as f:
         ai_mappings = json.load(f)
 
-    # Init dummy game for sizing
-    _g = LoveLiveGame()
-    num_songs = len(_g.songs) + 1
-    num_artists = len(_g.artists) + 1
+    # Init sizing from mappings (decoupled from game_data.json)
+    num_songs = len(ai_mappings['song_to_idx']) + 1
+    num_artists = len(ai_mappings['artist_to_idx']) + 1
     num_feedback = 4
-    num_lives = len(_g.lives)
+    num_lives = len(ai_mappings['live_to_idx'])
 
     device = torch.device('cpu') # Use CPU for HF Spaces inference usually
     ai_model = LoveLiveTransformer(num_songs, num_artists, num_feedback, num_lives).to(device)
