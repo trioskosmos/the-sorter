@@ -2,6 +2,8 @@ import artistInfo from '../../data/artists-info.json';
 import type { SongFilterType } from '~/components/sorter/SongFilters';
 import type { Song } from '~/types/songs';
 
+const artistMap = new Map(artistInfo.map((a) => [a.id, a]));
+
 const GROUPS_INFO = [
   { name: "μ's", seriesId: 1 },
   { name: 'Aqours', seriesId: 2 },
@@ -21,7 +23,7 @@ export const matchSongFilter = (item: Song, filter: SongFilterType) => {
   if (!filter) return true;
   if (!isValidSongFilter(filter)) return true;
 
-  const artistData = item.artists.map((i) => artistInfo.find((a) => a.id === i.id));
+  const artistData = item.artists.map((i) => artistMap.get(i.id));
 
   // 1. Series Logic (OR within section)
   // 1. Series Logic (OR within section, but exclusive per series)
