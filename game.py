@@ -24,6 +24,7 @@ class LoveLiveGame:
         self.possible_live_ids = set(self.live_ids)
         self.guessed_song_ids = set()
         self.guessed_live_ids = set()
+        self.history = [] # List of (song_id, artist_id, feedback)
 
         # Mappings for search
         self.song_name_map = {s['name']: sid for sid, s in self.songs.items()}
@@ -41,6 +42,7 @@ class LoveLiveGame:
         self.possible_live_ids = set(self.live_ids)
         self.guessed_song_ids = set()
         self.guessed_live_ids = set()
+        self.history = []
 
         return self.target_live_id
 
@@ -57,19 +59,28 @@ class LoveLiveGame:
         self.guessed_song_ids.add(song_id)
 
         # Check if song is in target live
+        feedback = 0
         if song_id in self.target_live['song_ids']:
             # Song is correct. Check artist.
             if artist_id in self.target_live['artist_ids']:
-                return 2 # Song & Artist Correct
+                feedback = 2 # Song & Artist Correct
             else:
-                return 1 # Song Correct, Artist Incorrect
+                feedback = 1 # Song Correct, Artist Incorrect
         else:
-            return 0 # Song Incorrect
+            feedback = 0 # Song Incorrect
+
+        self.history.append((song_id, artist_id, feedback))
+        return feedback
 
     def guess_song_only(self, song_id):
         """
         Used for Song-Only mode.
         Returns: (is_correct, matched_artist_ids)
+        Note: For history tracking, we can't record a single 'artist_id' if multiple matched.
+        We'll just record the first one or a placeholder, and the feedback '2' (Implies Song Correct).
+        Actually, for 'Song Only', we might not be using the Model effectively if inputs are weird.
+        But let's try to be consistent. If correct, we assume perfect feedback (2) with a valid artist.
+        If incorrect, feedback 0.
         """
         if song_id not in self.songs:
             return False, []
@@ -84,14 +95,21 @@ class LoveLiveGame:
             # Intersection: Artists in the live who are known to perform this song
             matched = list(live_artists.intersection(song_artists))
 
-            # Fallback: if intersection is empty (unexpected), return valid artists?
-            # Or maybe just return all song_artists?
-            # Let's return matched if any, else song_artists (maybe guest performer?)
             if not matched:
                  matched = list(song_artists)
 
+            # Record in history (Take first matched artist)
+            # This allows the model to see "Ah, they guessed Song X and got positive feedback"
+            aid = matched[0] if matched else self.artist_ids[0]
+            self.history.append((song_id, aid, 2))
+
             return True, matched
         else:
+            # Record failure
+            # Artist doesn't matter for feedback 0, just pick a placeholder
+            aid = self.artist_ids[0]
+            self.history.append((song_id, aid, 0))
+
             return False, []
 
     def prune_candidates(self, song_id, artist_id, feedback):
@@ -219,6 +237,37 @@ class LoveLiveGame:
         return scores[:top_k]
 
 def play_cli():
+    # Try to load Model for AI Analysis
+    ai_model = None
+    ai_device = None
+    ai_mappings = None
+
+    try:
+        import torch
+        from model import LoveLiveTransformer
+
+        # Load mappings
+        try:
+            with open('mappings.json', 'r') as f:
+                ai_mappings = json.load(f)
+
+            game_temp = LoveLiveGame() # Just to get counts
+            num_songs = len(game_temp.songs) + 1
+            num_artists = len(game_temp.artists) + 1
+            num_feedback = 4
+            num_lives = len(game_temp.lives)
+
+            ai_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            ai_model = LoveLiveTransformer(num_songs, num_artists, num_feedback, num_lives).to(ai_device)
+            ai_model.load_state_dict(torch.load('transformer_model.pth', map_location=ai_device))
+            ai_model.eval()
+            print(">> AI Model loaded successfully. Analysis mode will include Model Predictions.")
+        except Exception as e:
+            print(f">> Could not load AI Model ({e}). Analysis mode will be Entropy only.")
+
+    except ImportError:
+        print(">> Torch not found. Analysis mode will be Entropy only.")
+
     game = LoveLiveGame()
     game.start_game()
     print("Welcome to LoveLive Wordle!")
@@ -249,13 +298,55 @@ def play_cli():
             break
 
         elif mode == 'A':
-            print("Analyzing best moves (Entropy)...")
+            print("\n=== ANALYSIS ===")
+
+            # 1. AI Evaluation (Model)
+            if ai_model and game.history:
+                try:
+                    song_to_idx = ai_mappings['song_to_idx']
+                    artist_to_idx = ai_mappings['artist_to_idx']
+                    idx_to_live = {v: k for k, v in ai_mappings['live_to_idx'].items()} # Invert map
+
+                    # Prepare input
+                    songs_seq = [song_to_idx[h[0]] + 1 for h in game.history]
+                    artists_seq = [artist_to_idx[h[1]] + 1 for h in game.history]
+                    feedbacks_seq = [h[2] + 1 for h in game.history]
+
+                    s_in = torch.tensor(songs_seq, device=ai_device).unsqueeze(1)
+                    a_in = torch.tensor(artists_seq, device=ai_device).unsqueeze(1)
+                    f_in = torch.tensor(feedbacks_seq, device=ai_device).unsqueeze(1)
+
+                    with torch.no_grad():
+                        logits = ai_model(s_in, a_in, f_in)
+                        probs = torch.softmax(logits, dim=1).squeeze(0)
+
+                    # Top predictions
+                    top_k_pred = torch.topk(probs, k=3)
+                    print("\n[AI Position Evaluation]")
+                    for i in range(3):
+                         idx = top_k_pred.indices[i].item()
+                         prob = top_k_pred.values[i].item()
+                         lid = idx_to_live[idx]
+                         print(f"  {i+1}. {game.lives[lid]['name']} ({prob:.2%})")
+
+                except Exception as e:
+                    print(f"Error running AI model: {e}")
+            elif ai_model:
+                print("\n[AI Position Evaluation]")
+                print("  (Make at least one guess to get a prediction)")
+
+            # 2. Entropy Evaluation
+            print("\n[Best Moves (Information Gain)]")
             best_moves = game.get_best_moves(top_k=5)
-            print(f"{'Song Name':<40} | {'Score':<6}")
-            print("-" * 50)
-            for sid, score in best_moves:
-                print(f"{game.songs[sid]['name']:<40} | {score:.4f}")
-            print("-" * 50)
+            if best_moves:
+                print(f"  {'Song Name':<40} | {'Score':<6}")
+                print("  " + "-" * 50)
+                for sid, score in best_moves:
+                    print(f"  {game.songs[sid]['name']:<40} | {score:.4f}")
+                print("  " + "-" * 50)
+            else:
+                print("  No moves available (or game solved).")
+            print("================\n")
 
         elif mode == 'S':
             s_name = input("Song Name: ")
