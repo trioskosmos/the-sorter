@@ -62,29 +62,39 @@ export function HasuSongResultsView({
     }
   }, [currentTab, setCurrentTab, tabs]);
 
+  const songsMap = useMemo(() => {
+    return new Map(songsData.map((s) => [s.id, s]));
+  }, [songsData]);
+
   const songs = useMemo(() => {
+    if (!order) return [];
+
+    let currentRank = 1;
+
     return (
       order
-        ?.map((ids, idx, arr) => {
-          const startRank = arr
-            .slice(0, idx)
-            .reduce((p, c) => p + (Array.isArray(c) ? c.length : 1), 1);
+        .map((ids) => {
+          const startRank = currentRank;
+          const count = Array.isArray(ids) ? ids.length : 1;
+          currentRank += count;
+
           if (Array.isArray(ids)) {
             return ids
               .map((id) => {
-                const song = songsData.find((s) => s.id === id);
+                const song = songsMap.get(id);
                 return song ? { rank: startRank, ...song } : null;
               })
               .filter((d): d is WithRank<HasuSong> => d !== null);
           } else {
-            const chara = songsData.find((i) => i.id === ids);
+            // @ts-ignore - handling case where order might contain non-array items
+            const chara = songsMap.get(ids);
             if (!chara) return [];
             return [{ rank: startRank, ...chara }];
           }
         })
         .filter((c): c is WithRank<HasuSong>[] => !!c) ?? []
     ).flatMap((s) => s);
-  }, [order, songsData]);
+  }, [order, songsMap]);
 
   const makeScreenshot = async () => {
     setShowRenderingCanvas(true);
@@ -125,7 +135,7 @@ export function HasuSongResultsView({
       order
         ?.flatMap((item, idx) =>
           item.map((i) => {
-            const s = songsData.find((s) => s.id === i);
+            const s = songsMap.get(i);
             return `${idx + 1}. ${s?.title} - ${s?.unit}`;
           })
         )
@@ -139,7 +149,7 @@ export function HasuSongResultsView({
       JSON.stringify(
         order?.flatMap((item, idx) =>
           item.map((i) => {
-            const s = songsData.find((s) => s.id === i);
+            const s = songsMap.get(i);
             return {
               rank: idx + 1,
               title: s?.title,
@@ -156,7 +166,7 @@ export function HasuSongResultsView({
     const seiyuuList = order
       ?.flatMap((ids, idx) =>
         ids.map((id) => {
-          const song = songsData.find((s) => s.id === id);
+          const song = songsMap.get(id);
           if (!song) return;
           return `${idx + 1}. ${song.title}`;
         })
