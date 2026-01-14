@@ -257,7 +257,13 @@ def play_cli():
             num_feedback = 4
             num_lives = len(game_temp.lives)
 
-            ai_device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+            if torch.cuda.is_available():
+                ai_device = torch.device('cuda')
+            elif torch.backends.mps.is_available():
+                ai_device = torch.device('mps')
+            else:
+                ai_device = torch.device('cpu')
+
             ai_model = LoveLiveTransformer(num_songs, num_artists, num_feedback, num_lives).to(ai_device)
             ai_model.load_state_dict(torch.load('transformer_model.pth', map_location=ai_device))
             ai_model.eval()
