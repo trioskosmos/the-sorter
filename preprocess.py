@@ -80,7 +80,7 @@ def preprocess():
 
         processed_lives[live_id] = {
             'name': live_name,
-            'song_ids': list(set(live_song_ids)), # Unique songs
+            'song_ids': list(dict.fromkeys(live_song_ids)), # Unique songs, preserve order
             'artist_ids': list(live_artist_ids)
         }
 

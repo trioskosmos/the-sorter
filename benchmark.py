@@ -67,10 +67,11 @@ class HybridAIAgent(Agent):
         self.live_to_idx = mappings['live_to_idx']
         self.idx_to_live = {v: k for k, v in self.live_to_idx.items()}
 
-        num_songs = len(game.songs) + 1
-        num_artists = len(game.artists) + 1
+        # Use mappings for sizing (decoupled from game_data.json)
+        num_songs = len(self.song_to_idx) + 1
+        num_artists = len(self.artist_to_idx) + 1
         num_feedback = 4
-        num_lives = len(game.lives)
+        num_lives = len(self.live_to_idx)
 
         if torch.cuda.is_available():
             self.device = torch.device('cuda')
