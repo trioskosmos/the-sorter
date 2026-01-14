@@ -13,6 +13,11 @@ class LoveLiveGame:
         self.songs = self.data['songs']
         self.artists = self.data['artists']
 
+        # Pre-compute sets for O(1) lookups
+        for live in self.lives.values():
+            live['song_ids_set'] = set(live['song_ids'])
+            live['artist_ids_set'] = set(live['artist_ids'])
+
         self.live_ids = list(self.lives.keys())
         self.song_ids = list(self.songs.keys())
         self.artist_ids = list(self.artists.keys())
@@ -60,9 +65,9 @@ class LoveLiveGame:
 
         # Check if song is in target live
         feedback = 0
-        if song_id in self.target_live['song_ids']:
+        if song_id in self.target_live['song_ids_set']:
             # Song is correct. Check artist.
-            if artist_id in self.target_live['artist_ids']:
+            if artist_id in self.target_live['artist_ids_set']:
                 feedback = 2 # Song & Artist Correct
             else:
                 feedback = 1 # Song Correct, Artist Incorrect
@@ -87,9 +92,9 @@ class LoveLiveGame:
 
         self.guessed_song_ids.add(song_id)
 
-        if song_id in self.target_live['song_ids']:
+        if song_id in self.target_live['song_ids_set']:
             # Find artists in this live that are associated with this song
-            live_artists = set(self.target_live['artist_ids'])
+            live_artists = self.target_live['artist_ids_set']
             song_artists = set(self.songs[song_id]['artist_ids'])
 
             # Intersection: Artists in the live who are known to perform this song
@@ -120,10 +125,10 @@ class LoveLiveGame:
         to_remove = set()
         for lid in self.possible_live_ids:
             live = self.lives[lid]
-            has_song = song_id in live['song_ids']
+            has_song = song_id in live['song_ids_set']
 
             # For artist check, we only check if artist is in live's artist list
-            has_artist = artist_id in live['artist_ids']
+            has_artist = artist_id in live['artist_ids_set']
 
             if feedback == 0:
                 # Song NOT in live
@@ -192,7 +197,7 @@ class LoveLiveGame:
         # Count how many remaining lives have this song
         yes_count = 0
         for lid in self.possible_live_ids:
-            if song_id in self.lives[lid]['song_ids']:
+            if song_id in self.lives[lid]['song_ids_set']:
                 yes_count += 1
 
         no_count = candidate_count - yes_count
@@ -224,7 +229,7 @@ class LoveLiveGame:
 
         relevant_songs = set()
         for lid in self.possible_live_ids:
-            relevant_songs.update(self.lives[lid]['song_ids'])
+            relevant_songs.update(self.lives[lid]['song_ids_set'])
 
         for sid in relevant_songs:
             if sid in self.guessed_song_ids:
@@ -370,7 +375,7 @@ def play_cli():
                  # Check validity: Is this song in any remaining candidate live?
                  is_valid_guess = False
                  for lid in game.possible_live_ids:
-                     if sid in game.lives[lid]['song_ids']:
+                     if sid in game.lives[lid]['song_ids_set']:
                          is_valid_guess = True
                          break
 
@@ -394,12 +399,12 @@ def play_cli():
                          to_remove = set()
                          for lid in game.possible_live_ids:
                              l = game.lives[lid]
-                             if sid not in l['song_ids']:
+                             if sid not in l['song_ids_set']:
                                  to_remove.add(lid)
                              else:
                                  # Also check artists
                                  for aid in matched_artists:
-                                     if aid not in l['artist_ids']:
+                                     if aid not in l['artist_ids_set']:
                                          to_remove.add(lid)
                                          break
 
@@ -412,7 +417,7 @@ def play_cli():
                         # Prune lives WITH this song
                         to_remove = set()
                         for lid in game.possible_live_ids:
-                            if sid in game.lives[lid]['song_ids']:
+                            if sid in game.lives[lid]['song_ids_set']:
                                 to_remove.add(lid)
                         game.possible_live_ids -= to_remove
                         print(f"   (Candidates remaining: {len(game.possible_live_ids)})")
