@@ -51,6 +51,9 @@ export function SetlistView({
   const setlist = prediction.setlist;
   const items = setlist.items;
 
+  // Memoize song count
+  const songCount = useMemo(() => items.filter((i) => i.type === 'song').length, [items]);
+
   // Find encore divider index
   const encoreDividerIndex = useMemo(() => {
     return items.findIndex((item) => {
@@ -96,8 +99,7 @@ export function SetlistView({
               <Text>• {performance?.venue || prediction.customPerformance?.venue}</Text>
             )}
             <Text>
-              {performance || prediction.customPerformance ? '•' : ''}{' '}
-              {setlist.items.filter((i) => i.type === 'song').length} songs
+              {performance || prediction.customPerformance ? '•' : ''} {songCount} songs
             </Text>
           </HStack>
         </Box>
@@ -308,8 +310,8 @@ export function SetlistView({
         <Box borderTopWidth="1px" pt={3}>
           <Text color="fg.muted" fontSize="sm" textAlign="center">
             {t('setlistPrediction.totalSongs', {
-              count: setlist.items.filter((i) => i.type === 'song').length,
-              defaultValue: `Total Songs: ${setlist.items.filter((i) => i.type === 'song').length}`
+              count: songCount,
+              defaultValue: `Total Songs: ${songCount}`
             })}
           </Text>
         </Box>
