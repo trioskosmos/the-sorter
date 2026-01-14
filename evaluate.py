@@ -67,10 +67,6 @@ def evaluate():
             print(f"Turn {turn+1}: First guess random -> {game.songs[guess_song_id]['name']}")
         else:
             # Use model to predict live
-            # Pad inputs? Model uses positional encoding, so length matters.
-            # Train used random seq len 1..20.
-            # Just pass current seq.
-
             # Map indices + 1
             s_in = torch.tensor([x + 1 for x in songs_seq], device=device).unsqueeze(1) # (seq_len, 1)
             a_in = torch.tensor([x + 1 for x in artists_seq], device=device).unsqueeze(1)
@@ -80,6 +76,22 @@ def evaluate():
                 logits = model(s_in, a_in, f_in)
                 probs = torch.softmax(logits, dim=1).squeeze(0) # (num_lives)
 
+            # Apply hard constraints (pruning)
+            # Mask out impossible lives based on game.possible_live_ids
+            mask = torch.zeros_like(probs)
+            possible_indices = [live_to_idx[lid] for lid in game.possible_live_ids]
+
+            if not possible_indices:
+                print("Error: No possible lives remaining according to hard constraints!")
+                break
+
+            mask[possible_indices] = 1.0
+            probs = probs * mask
+            if probs.sum() == 0:
+                 # Fallback (shouldn't happen if logic correct)
+                 probs[possible_indices] = 1.0
+            probs = probs / (probs.sum() + 1e-9)
+
             # Sort predictions
             sorted_indices = torch.argsort(probs, descending=True)
 
@@ -87,7 +99,7 @@ def evaluate():
             top_live_id = idx_to_live[top_idx.item()]
             top_prob = probs[top_idx]
 
-            print(f"Turn {turn+1}: Top Prediction: {game.lives[top_live_id]['name']} ({top_prob.item():.4f})")
+            print(f"Turn {turn+1}: Top Prediction: {game.lives[top_live_id]['name']} ({top_prob.item():.4f}) [Candidates: {len(possible_indices)}]")
 
             if top_prob.item() > 0.7 and top_live_id not in guessed_lives:
                 # Try guessing the live
@@ -99,54 +111,38 @@ def evaluate():
                 else:
                     print("WRONG Live guess. Continuing...")
                     guessed_lives.add(top_live_id)
+                    if top_live_id in game.possible_live_ids:
+                        game.possible_live_ids.remove(top_live_id)
 
-            # Choose next song
-            # Pick the Top N lives
-            top_k = 10
-            top_indices = torch.topk(probs, k=top_k).indices.tolist()
-            candidate_lives_ids = [idx_to_live[i] for i in top_indices]
+            # Choose next song: Use Game Engine's Best Move (Entropy)
+            # The game engine uses uniform probability over remaining candidates.
+            # We can upgrade this to use the model's probabilities?
 
-            # Collect songs from these lives
-            candidate_songs = []
-            for lid in candidate_lives_ids:
-                candidate_songs.extend(game.lives[lid]['song_ids'])
+            # Option A: Use game.get_best_moves() (Pure Entropy on uniform priors)
+            # Option B: Use Model Weighted Entropy (similar to what I had, but maybe cleaner?)
 
-            # Count frequency
-            from collections import Counter
-            song_counts = Counter(candidate_songs)
+            # Let's use the game engine's pure entropy for robustness, as the model
+            # can be overconfident or biased. Pure entropy ensures we cut the search space.
 
-            # Filter songs already guessed
-            guessed_set = set(songs_seq) # indices
-            # song_counts uses IDs
+            best_moves = game.get_best_moves(top_k=1)
 
-            best_song_id = None
-            best_score = -1
-
-            # Heuristic: Pick song closest to appearing in 50% of top candidates (Entropy maximization)
-            target_count = top_k / 2
-
-            for sid, count in song_counts.items():
-                if song_to_idx[sid] in guessed_set:
-                    continue
-
-                score = -abs(count - target_count) # Maximize this (closest to 0 diff)
-                if score > best_score:
-                    best_score = score
-                    best_song_id = sid
-
-            if not best_song_id:
-                best_song_id = random.choice(all_song_ids)
-
-            guess_song_id = best_song_id
+            if best_moves:
+                guess_song_id = best_moves[0][0]
+                print(f"Guessing Song: {game.songs[guess_song_id]['name']} (Score: {best_moves[0][1]:.4f})")
+            else:
+                # Fallback if no moves (shouldn't happen if candidates > 1)
+                guess_song_id = random.choice(all_song_ids)
+                print(f"Guessing Song: {game.songs[guess_song_id]['name']} (Random Fallback)")
             # Pick likely artist for this song
             a_ids = game.songs[guess_song_id]['artist_ids']
             guess_artist_id = a_ids[0] if a_ids else list(game.artists.keys())[0]
 
-            print(f"Guessing Song: {game.songs[guess_song_id]['name']}")
-
         # Execute guess
         feedback = game.guess_song(guess_song_id, guess_artist_id)
         print(f"Feedback: {feedback}")
+
+        # Prune candidates based on feedback
+        game.prune_candidates(guess_song_id, guess_artist_id, feedback)
 
         songs_seq.append(song_to_idx[guess_song_id])
         artists_seq.append(artist_to_idx[guess_artist_id])
