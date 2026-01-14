@@ -38,3 +38,7 @@ coverage*
 .release-it.json.cache
 
 .env
+
+# Python
+__pycache__/
+*.pyc

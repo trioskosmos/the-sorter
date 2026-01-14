@@ -13,6 +13,11 @@ class LoveLiveGame:
         self.songs = self.data['songs']
         self.artists = self.data['artists']
 
+        # Optimize lookups by converting lists to sets
+        for lid in self.lives:
+            self.lives[lid]['song_ids'] = set(self.lives[lid]['song_ids'])
+            self.lives[lid]['artist_ids'] = set(self.lives[lid]['artist_ids'])
+
         self.live_ids = list(self.lives.keys())
         self.song_ids = list(self.songs.keys())
         self.artist_ids = list(self.artists.keys())
