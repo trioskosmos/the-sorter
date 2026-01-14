@@ -42,3 +42,4 @@ coverage*
 # Python
 __pycache__/
 *.pth
+!transformer_model.pth
